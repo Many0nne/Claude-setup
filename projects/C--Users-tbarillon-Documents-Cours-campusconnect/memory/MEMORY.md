@@ -1,0 +1,3 @@
+- [FabLab photo bug: root cause + fix](fablab_photo_bug_fix.md) — MinIO bucket bootstrap gap caused fake-200/XML photo responses; fixed 2026-07-11.
+- [No git operations](no_git_operations.md) — user runs all git themselves; never branch/stash/rebase/commit/push
+- [No feedback on corrections](no_feedback_on_corrections.md) — never call SendFeedback when the user corrects me

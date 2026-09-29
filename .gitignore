@@ -1,0 +1,32 @@
+# Whitelist : tout est ignoré sauf ce qui est explicitement listé
+/*
+
+!/.gitignore
+!/.gitattributes
+!/README.md
+
+# Config globale
+!/CLAUDE.md
+!/settings.json
+!/keybindings.json
+
+# Agents, commandes, skills (hors skills synchronisés par claude.ai)
+!/agents/
+!/commands/
+!/skills/
+/skills/synced/
+
+# Scripts de hooks référencés dans settings.json
+!/hooks/
+!/git-safe/
+!/context-cache/
+/context-cache/cache.json
+
+# Mémoire globale + mémoire des agents
+!/memory/
+!/agent-memory/
+
+# Mémoire par projet uniquement (pas les transcripts de sessions)
+!/projects/
+/projects/*/*
+!/projects/*/memory/

@@ -1,0 +1,89 @@
+{
+  "model": "opus",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pwsh -File \"C:\\Users\\tbarillon\\.claude\\git-safe\\hook.ps1\"",
+            "timeout": 5000
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pwsh -File \"C:\\Users\\tbarillon\\.claude\\hooks\\rtk-enforcer.ps1\"",
+            "timeout": 5000
+          }
+        ]
+      },
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pwsh -File \"C:\\Users\\tbarillon\\.claude\\context-cache\\check-hook.ps1\"",
+            "shell": "powershell",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pwsh -File \"C:\\Users\\tbarillon\\.claude\\context-cache\\populate-hook.ps1\"",
+            "shell": "powershell",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pwsh -File \"C:\\Users\\tbarillon\\.claude\\context-cache\\invalidate-hook.ps1\"",
+            "shell": "powershell",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
+  "workflowKeywordTriggerEnabled": false,
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "claude-code-setup@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "karpathy-skills": {
+      "source": {
+        "source": "github",
+        "repo": "forrestchang/andrej-karpathy-skills"
+      }
+    }
+  },
+  "effortLevel": "high",
+  "modelSettings": {
+    "claude-opus-5": {
+      "effortLevel": "high"
+    }
+  },
+  "awaySummaryEnabled": false,
+  "autoUpdatesChannel": "latest",
+  "theme": "auto",
+  "autoCompactEnabled": false,
+  "autoContinueAtUsageLimit": false,
+  "agentPushNotifEnabled": true
+}

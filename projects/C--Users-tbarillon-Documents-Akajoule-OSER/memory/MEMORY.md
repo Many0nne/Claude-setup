@@ -1,0 +1,6 @@
+- [Décisions modèle hybride](hybrid-model-decisions.md) — granularité par zone, nettoyage, régresseurs, grilles, validation du projet OSER
+- [État du projet](project-status.md) — V1 archivée (docs/v1, outputs/v1, tag), V2 courante (docs/v2, outputs/v2) ; reste priors définitifs + questions ingénieur
+- [Spécifications V2 de l'ingénieur](v2-engineer-specs.md) — livrable = tables sei/PCE en Wh, priors valeur+écart-type à venir, actif/réduit par bâtiment, solaire hors scope
+- [Retours externes à instruire](external-review-critique.md) — les retours ChatGPT relayés sont à critiquer, pas à appliquer
+- [Les plans vont dans docs/](plans-go-in-docs.md) — un plan se rédige dans docs/v2/PLAN_*.md du dépôt (docs de la version courante), et n'implique pas de l'implémenter
+- [Pas de runs lourds en arrière-plan](no-heavy-background-runs.md) — les campagnes crashe le PC de Terry ; lui donner la commande, n_jobs plafonné à 6
