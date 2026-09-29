@@ -20,7 +20,7 @@ git checkout -f -b main --track origin/main   # écrase les fichiers suivis exis
 ```
 
 ## Points d'attention
-- Les hooks de `settings.json` utilisent des chemins absolus `C:\Users\tbarillon\...` : il faut le même nom d'utilisateur Windows sur les deux PC.
+- Les hooks de `settings.json` utilisent `$env:USERPROFILE` (exécutés avec `"shell": "powershell"`) : ils fonctionnent quel que soit le nom d'utilisateur Windows. Ils appellent `pwsh` : PowerShell 7 doit être installé (`winget install Microsoft.PowerShell`).
 - Les dossiers `projects/<chemin-encodé>/memory` sont indexés par chemin absolu du projet : la mémoire d'un projet n'est reprise que s'il est cloné au même emplacement.
 - Les plugins sont réinstallés à partir de `enabledPlugins` / `extraKnownMarketplaces` dans `settings.json`.
 - `settings.local.json` reste local pour les réglages propres à chaque machine.

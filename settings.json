@@ -6,8 +6,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "pwsh -File \"C:\\Users\\tbarillon\\.claude\\git-safe\\hook.ps1\"",
-            "timeout": 5000
+            "command": "pwsh -File \"$env:USERPROFILE\\.claude\\git-safe\\hook.ps1\"",
+            "timeout": 5000,
+            "shell": "powershell"
           }
         ]
       },
@@ -16,8 +17,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "pwsh -File \"C:\\Users\\tbarillon\\.claude\\hooks\\rtk-enforcer.ps1\"",
-            "timeout": 5000
+            "command": "pwsh -File \"$env:USERPROFILE\\.claude\\hooks\\rtk-enforcer.ps1\"",
+            "timeout": 5000,
+            "shell": "powershell"
           }
         ]
       },
@@ -26,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "pwsh -File \"C:\\Users\\tbarillon\\.claude\\context-cache\\check-hook.ps1\"",
+            "command": "pwsh -File \"$env:USERPROFILE\\.claude\\context-cache\\check-hook.ps1\"",
             "shell": "powershell",
             "timeout": 5
           }
@@ -39,7 +41,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "pwsh -File \"C:\\Users\\tbarillon\\.claude\\context-cache\\populate-hook.ps1\"",
+            "command": "pwsh -File \"$env:USERPROFILE\\.claude\\context-cache\\populate-hook.ps1\"",
             "shell": "powershell",
             "timeout": 5
           }
@@ -50,7 +52,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "pwsh -File \"C:\\Users\\tbarillon\\.claude\\context-cache\\invalidate-hook.ps1\"",
+            "command": "pwsh -File \"$env:USERPROFILE\\.claude\\context-cache\\invalidate-hook.ps1\"",
             "shell": "powershell",
             "timeout": 5
           }
