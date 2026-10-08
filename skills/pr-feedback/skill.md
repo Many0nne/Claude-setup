@@ -28,10 +28,11 @@ gh api graphql -f query='
       reviewThreads(first: 100) {
         nodes {
           isResolved
-          comments(first: 10) {
+          comments(first: 50) {
             nodes {
               body
               author { login }
+              createdAt
               path
               line
               originalLine
@@ -41,6 +42,21 @@ gh api graphql -f query='
           }
         }
       }
+      reviews(first: 100) {
+        nodes {
+          body
+          state
+          author { login }
+          submittedAt
+        }
+      }
+      comments(first: 100) {
+        nodes {
+          body
+          author { login }
+          createdAt
+        }
+      }
     }
   }
 }'
@@ -48,7 +64,9 @@ gh api graphql -f query='
 
 Replace `OWNER`, `REPO`, `NUMBER` with the values detected from git remote and the argument.
 
-Filter only nodes where `isResolved: false`.
+- `reviewThreads`: keep only nodes where `isResolved: false`. Keep **all** comments of each thread (original + replies).
+- `reviews`: global review bodies (text submitted with "Approve / Request changes / Comment"). Ignore reviews with an empty `body`.
+- `comments`: general PR comments (Conversation tab). Keep all of them, they may give context on the suggestions.
 
 ## Output Format
 
@@ -61,19 +79,34 @@ File: `pr_<number>_feedback.md` in the current working directory.
 
 ---
 
+## Commentaires généraux
+
+### @<author> — <date> (<review state, if from a review>)
+
+> <comment body, verbatim>
+
+---
+
 ## `<file_path>`
 
 ### Lignes <startLine>–<line>     ← use "Ligne <line>" if no startLine, omit if both null
 
-> <comment body, verbatim>
+**@<author>** :
+
+> <original comment body, verbatim>
+
+**↳ @<reply_author>** :
+
+> <reply body, verbatim>
 
 ---
 ```
 
 Rules:
-- Group comments by file path (one `##` header per file).
-- Within a file, order comments by line number ascending. Comments with no line go at the bottom of that file's section under "### Fichier (commentaire général)".
-- If a thread has multiple comments (replies), include only the first comment (the original review comment). Replies are not needed.
+- The "Commentaires généraux" section comes first. It merges non-empty review bodies and PR conversation comments, ordered by date ascending. Omit the section if there are none.
+- Group thread comments by file path (one `##` header per file).
+- Within a file, order threads by line number ascending. Threads with no line go at the bottom of that file's section under "### Fichier (commentaire général)".
+- Include every comment of a thread: the original review comment first, then replies in chronological order, each prefixed with its author (`↳` for replies).
 - Preserve code blocks and suggestions verbatim inside the `>` quote blocks (use fenced code blocks inside blockquotes).
 - Use `---` separators between threads.
 - Files with no line info get `### Fichier (commentaire général)` as heading.
@@ -87,5 +120,6 @@ Rules:
 ## Completion
 
 After writing the file, report:
-- How many unresolved threads were found
+- How many unresolved threads were found (and how many replies they contain)
+- How many general comments were found
 - The output file path

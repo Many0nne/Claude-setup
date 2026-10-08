@@ -1,5 +1,4 @@
 {
-  "model": "opus",
   "hooks": {
     "PreToolUse": [
       {
@@ -7,74 +6,19 @@
           {
             "type": "command",
             "command": "pwsh -File \"$env:USERPROFILE\\.claude\\git-safe\\hook.ps1\"",
-            "timeout": 5000,
-            "shell": "powershell"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "pwsh -File \"$env:USERPROFILE\\.claude\\hooks\\rtk-enforcer.ps1\"",
-            "timeout": 5000,
-            "shell": "powershell"
-          }
-        ]
-      },
-      {
-        "matcher": "Read",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "pwsh -File \"$env:USERPROFILE\\.claude\\context-cache\\check-hook.ps1\"",
             "shell": "powershell",
-            "timeout": 5
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Read",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "pwsh -File \"$env:USERPROFILE\\.claude\\context-cache\\populate-hook.ps1\"",
-            "shell": "powershell",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "pwsh -File \"$env:USERPROFILE\\.claude\\context-cache\\invalidate-hook.ps1\"",
-            "shell": "powershell",
-            "timeout": 5
+            "timeout": 5000
           }
         ]
       }
     ]
   },
   "workflowKeywordTriggerEnabled": false,
-  "enabledPlugins": {
-    "context7@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "claude-code-setup@claude-plugins-official": true,
-    "rust-analyzer-lsp@claude-plugins-official": true
+  "statusLine": {
+    "type": "command",
+    "command": "pwsh -NoProfile -File C:/Users/tbarillon/.claude/statusline.ps1"
   },
-  "extraKnownMarketplaces": {
-    "karpathy-skills": {
-      "source": {
-        "source": "github",
-        "repo": "forrestchang/andrej-karpathy-skills"
-      }
-    }
+  "enabledPlugins": {
   },
   "effortLevel": "high",
   "modelSettings": {
@@ -87,5 +31,6 @@
   "theme": "auto",
   "autoCompactEnabled": false,
   "autoContinueAtUsageLimit": false,
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "model": "sonnet"
 }

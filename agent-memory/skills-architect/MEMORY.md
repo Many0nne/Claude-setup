@@ -1,1 +1,0 @@
-- [Win95 Portfolio skill taxonomy](project_win95_portfolio.md) — 6-skill taxonomy for the portfolio SPA; domains and split rationale
