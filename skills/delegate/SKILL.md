@@ -32,7 +32,7 @@ Si le script echoue (ports en dur, branche a rebaser...), rapporter l'erreur tel
 
 - Ecrire le brief complet dans `<racine>/worktrees/.briefs/<slug>.md` (dossier ignore par git).
 - Dossier de lancement :
-  - racine multi-depots non versionnee (cas NOP) : la racine du projet, pour charger son `CLAUDE.md` et ses memoires ; le brief impose de ne travailler que dans le(s) worktree(s) ;
+  - racine multi-depots non versionnee (cas NOP) : la racine du projet. Les memoires auto sont rattachees au dossier de lancement : une session lancee dans le worktree n'a pas celles de la racine (verifie sur NOP). Le brief impose de ne travailler que dans le(s) worktree(s) ;
   - depot unique : le dossier du worktree (memoire et `CLAUDE.md` partages entre worktrees).
 - Lancer : `pwsh -NoProfile -File "$env:USERPROFILE\.claude\skills\delegate\launch.ps1" -Dir <dossier> -Brief <chemin du brief> -Title <slug>`.
 - Annoncer en 3 lignes : branche, URL de la stack, commande de nettoyage (`<script> <branche> -Remove`, a lancer par l'utilisateur apres relecture).
@@ -45,6 +45,7 @@ Si le script echoue (ports en dur, branche a rebaser...), rapporter l'erreur tel
 ## Environnement
 - Branche : `<branche>` (base `<base>`)
 - Worktree(s) : `<chemin>` [, `<chemin>`]. Ne modifier aucun fichier en dehors.
+- Tous les chemins utiles sont dans ce brief : ne pas lister ni explorer le dossier de lancement ni les checkouts principaux. Premiere commande shell : `cd <worktree>`.
 - Stack : <URL back> / <URL front>. Lancer les commandes `docker compose` depuis le worktree concerne.
 - Ne pas lire ni recopier les fichiers `.env`.
 
