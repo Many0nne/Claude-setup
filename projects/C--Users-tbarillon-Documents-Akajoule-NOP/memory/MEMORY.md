@@ -10,5 +10,4 @@
 - [Placement des const en Vue](feedback_const_placement.md) — Const en haut du script setup ; extraction vers fichier dédié seulement si déjà utilisée ailleurs, jamais par anticipation
 - [Pas d'Unicode ambigu dans le code](feedback_ascii_only_python.md) - Jamais d'espace fine (ni " "), ×, tirets/guillemets typographiques : ASCII simple uniquement (ruff RUF001 bloque le commit)
 - [Imports en haut du fichier](feedback_imports_en_haut.md) — NOP : jamais d'import local dans une fonction, même pour un cycle ; proposer une alternative
-- [Subventions #389](project_subventions_389.md) — spec specs/subventions-389.md, travail non commité sur dev, points ouverts
 - [BDD de dev modifiable](feedback_dev_db_modifiable.md) — Tester de bout en bout en modifiant la BDD dev via docker, sans rollback

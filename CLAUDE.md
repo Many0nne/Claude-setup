@@ -1,8 +1,6 @@
 # RTK (Rust Token Killer)
 
-**Toujours préfixer les commandes shell par `rtk`**, y compris dans les chaînes `&&` (`rtk git add . && rtk git commit -m "msg"`). Sans filtre dédié, RTK passe la commande telle quelle : c'est toujours sûr.
-
-Filtres dédiés : `git`, `gh`, `cargo`, `tsc`, `lint`, `prettier`, `vitest`, `playwright`, `pnpm`, `npm run`, `npx`, `docker`, `kubectl`, `curl`, `ls`, `read`, `grep`, `find`. Utilitaires : `rtk err <cmd>` (erreurs seules), `rtk test <cmd>` (échecs seuls), `rtk proxy <cmd>` (sans filtre), `rtk gain` (statistiques).
+Rappel : préfixer les commandes shell par `rtk`, y compris dans les chaînes `&&`. Sans filtre dédié, la commande passe telle quelle.
 
 ## Behavioral Rules
 
