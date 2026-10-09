@@ -30,7 +30,7 @@
   "workflowKeywordTriggerEnabled": false,
   "statusLine": {
     "type": "command",
-    "command": "pwsh -NoProfile -File C:/Users/tbarillon/.claude/statusline.ps1"
+    "command": "pwsh -NoProfile -File \"$USERPROFILE/.claude/statusline.ps1\""
   },
   "enabledPlugins": {},
   "effortLevel": "high",

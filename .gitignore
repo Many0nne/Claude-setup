@@ -16,8 +16,10 @@
 !/skills/
 /skills/synced/
 
-# Script de hook référencé dans settings.json
+# Scripts référencés dans settings.json (hooks + statusline)
 !/git-safe/
+!/hooks/
+!/statusline.ps1
 
 # Mémoire globale + mémoire des agents
 !/memory/
