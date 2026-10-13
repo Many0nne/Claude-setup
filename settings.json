@@ -1,10 +1,10 @@
 {
-  "model": "opus",
   "permissions": {
     "allow": [
       "Read(~/.claude/**)"
     ]
   },
+  "model": "opus",
   "hooks": {
     "PreToolUse": [
       {
@@ -42,6 +42,9 @@
   "modelSettings": {
     "claude-opus-5": {
       "effortLevel": "high"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "medium"
     }
   },
   "awaySummaryEnabled": false,

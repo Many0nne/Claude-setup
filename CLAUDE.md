@@ -18,3 +18,5 @@ Ne jamais trancher en silence une vraie décision en cours de route : s'arrêter
 **Commenting new methods:** Every new method must have 1–2 lines of comment (proportional to complexity), written as pseudo-code: "Cette méthode permet de [action] lorsque [condition/contexte]." One line for simple methods, two for complex ones.
 
 **When stuck in a loop:** After 3–4 back-and-forth attempts on the same problem without resolution, stop and produce a structured recap: (1) problem summary, (2) what was tried and why it failed, (3) remaining hypotheses. Then propose a direction rather than continuing blind.
+
+**Browser checks:** Never use Claude in Chrome (disabled, too costly on the Pro plan). When a front-end check needs a browser, give me a short test protocol (URL, steps, console snippet if useful, what to observe) and wait for my feedback.
