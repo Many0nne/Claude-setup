@@ -62,9 +62,12 @@ Si le script echoue (ports en dur, branche a rebaser...), rapporter l'erreur tel
 ## Contexte utile
 <decisions deja prises, pieges connus, liens vers spec/issue ; omettre si vide>
 
+## Suivi
+Ce brief sert de liste de taches : cocher chaque critere d'acceptation des qu'il est rempli, et ajouter en bas (section `## Taches decouvertes`) tout ce qui apparait en cours de route, coche une fois fait. Le relire apres un resume de contexte (compaction) avant de reprendre.
+
 ## Avant de rendre la main
 1. Lancer les tests et le lint concernes **dans la stack Docker du worktree**, corriger jusqu'a ce qu'ils passent.
 2. Invoquer le skill `code-review` (niveau medium) sur le diff de la branche ; corriger les points confirmes qui sont dans le perimetre, lister les autres.
 3. Ne pas commiter, ne pas pousser : l'utilisateur relit le diff non commite.
-4. Terminer par un compte rendu court : statut (FINI / BLOQUE), criteres d'acceptation coches, resultat des tests, points de review non traites, questions ouvertes.
+4. Terminer par un compte rendu court : statut (FINI / BLOQUE), puis trois rubriques dans cet ordre : **Bloque sur toi** (questions ouvertes, decisions, validations), **Modifie** (criteres d'acceptation coches, fichiers touches, resultat des tests), **Trouve** (points de review non traites, modifications hors perimetre proposees). Rubrique vide : "rien".
 ```

@@ -15,6 +15,16 @@ où plusieurs implémentations raisonnables donneraient des résultats visibleme
 Si la spec est déjà détaillée (ex. tickets NOP), ne pas sur-questionner : seulement les vrais trous.
 Ne jamais trancher en silence une vraie décision en cours de route : s'arrêter et demander.
 
+**Pendant l'exécution :** une fois les vraies décisions tranchées, enchaîner les étapes qui n'ont pas besoin de moi
+sans demander « je continue ? », en mettant les notes d'avancement dans le même message que l'action suivante.
+S'arrêter seulement si je suis indispensable pour avancer, ou avant une action destructive
+(suppression de données, force-push, modification hors du dépôt/worktree de travail).
+
+**Fin d'une tâche longue** (implémentation, run délégué, maintenance de PR, job en arrière-plan) : terminer par trois rubriques,
+dans cet ordre : **Bloqué sur toi** (décisions, validations, commandes à lancer), **Modifié** (fichiers/comportements changés,
+résultat des tests), **Trouvé** (problèmes ou améliorations repérés hors périmètre, proposés mais pas appliqués).
+Rubrique vide : écrire « rien ». Pas pour les questions/réponses courtes.
+
 **Commenting new methods:** Every new method must have 1–2 lines of comment (proportional to complexity), written as pseudo-code: "Cette méthode permet de [action] lorsque [condition/contexte]." One line for simple methods, two for complex ones.
 
 **When stuck in a loop:** After 3–4 back-and-forth attempts on the same problem without resolution, stop and produce a structured recap: (1) problem summary, (2) what was tried and why it failed, (3) remaining hypotheses. Then propose a direction rather than continuing blind.

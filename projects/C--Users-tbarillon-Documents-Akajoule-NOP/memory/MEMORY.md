@@ -3,7 +3,7 @@
 - [Tests via Docker](feedback_tests_docker.md) — Toujours `docker compose exec web python manage.py test --settings settings.test_settings`, jamais le venv local
 - [Composables = réseau uniquement](feedback_composables_network_only.md) — Outil-NOP-frontend : useXxx = appels API seulement, jamais de logique réutilisable générique
 - [Convention src/forms/](project_forms_convention.md) — Outil-NOP-frontend : nouveau dossier createXxxForm() pour state+orchestration hors composables réseau
-- [Confiance des points de review](feedback_review_confidence_labels.md) — Dans une review, préciser si un point est vérifié (testé) ou une supposition à tester
+- [Confiance des points de review](feedback_review_confidence_labels.md) — Review : bloquants seulement, fichier:ligne + pourquoi + comment ça casse, et vérifié vs supposition
 - [Proposer la factorisation](feedback_propose_factorisation.md) — Proposer d'extraire un composant/fonction dès qu'on duplique du markup ou de la logique
 - [Appel BRGM synchrone assumé](project_gmi_appel_synchrone.md) — PR #304 : latence save bâtiment acceptée, ne pas re-signaler en review
 - [Pas de changement hors périmètre](feedback_no_out_of_scope_changes.md) — Ne pas appliquer une modification hors de la demande sans accord explicite, la proposer d'abord
