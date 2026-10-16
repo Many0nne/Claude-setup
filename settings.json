@@ -18,6 +18,31 @@
         ]
       }
     ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pwsh -NoProfile -File \"$env:USERPROFILE\\.claude\\hooks\\lint-on-edit.ps1\"",
+            "shell": "powershell",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pwsh -NoProfile -File \"$env:USERPROFILE\\.claude\\hooks\\stop-validate.ps1\"",
+            "shell": "powershell",
+            "timeout": 180
+          }
+        ]
+      }
+    ],
     "SessionStart": [
       {
         "matcher": "startup",

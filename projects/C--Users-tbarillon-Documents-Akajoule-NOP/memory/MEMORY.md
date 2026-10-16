@@ -11,6 +11,12 @@
 - [Pas d'Unicode ambigu dans le code](feedback_ascii_only_python.md) - Jamais d'espace fine (ni " "), ×, tirets/guillemets typographiques : ASCII simple uniquement (ruff RUF001 bloque le commit)
 - [Imports en haut du fichier](feedback_imports_en_haut.md) — NOP : jamais d'import local dans une fonction, même pour un cycle ; proposer une alternative
 - [Push : --force-with-lease](feedback_push_force_with_lease.md) — Jamais --force ; apres rebase, l'utilisateur pousse lui-meme
-- [Pas de Claude in Chrome](feedback_pas_claude_in_chrome.md) — Tests navigateur : donner un protocole a l'utilisateur au lieu de piloter Chrome
+- [Pas de Claude in Chrome](feedback_pas_claude_in_chrome.md) — Jamais Chrome ; auto-verif front ciblee via preview_evaluate de T3, jugement visuel = protocole a l'utilisateur
 - [BDD de dev modifiable](feedback_dev_db_modifiable.md) — Tester de bout en bout en modifiant la BDD dev via docker, sans rollback
+- [GitHub Project NOP](reference_github_project_nop.md) - Akajoule #4 : iterations/statut/priorite des issues back+front, commandes gh
+- [Token SonarCloud](project_sonar_token.md) — SONAR_TOKEN pour /pr-feedback, expire le 2026-11-13 : rappeler de le renouveler
 - [Commits prefixes "claude:"](feedback_commit_prefix_claude.md) — Tout commit fait par Claude : 1re ligne prefixee `claude: ` + trailer Co-Authored-By
+- [Stack prête avant vérif](feedback_up_stack_avant_verif.md) — Créer ET up back+front (worktrees, containers, données) moi-même avant toute vérif ; l'utilisateur n'ouvre que le lien
+- [Couts preview T3](reference_t3_preview_couts.md) — Mesure 14/10 : snapshot texte ~3,5k tokens, image ~1,4k, evaluate ~0,1k ; evaluate autorise
+- [Outillage env : appliquer direct](feedback_env_tooling_apply_direct.md) — Ameliorations scripts/CLAUDE.md/skills NOP reperees en route : les appliquer, pas en "Trouve"
+- [Video de presentation NOP](project_video_presentation.md) — Revideo dans NOP/Outil-NOP-video, choix outil/format/son delegues, pieges rendu Windows

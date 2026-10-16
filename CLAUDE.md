@@ -4,7 +4,9 @@ Rappel : préfixer les commandes shell par `rtk`, y compris dans les chaînes `&
 
 ## Behavioral Rules
 
-**Before exploring the codebase:** Read the request and any files already provided in context first. Only explore further if the provided information is clearly insufficient — and explain why.
+**Exploration :** lire librement le code, les issues/PR (`gh`) et la doc du ou des depots concernes par la demande, sans demander la permission. Commencer par ce qui est deja fourni en contexte. Ne demander que pour sortir du perimetre (autre depot, fichiers hors projet, `.env`).
+
+**Question ou action :** une question (« est-ce que… ? », « pourquoi… ? », « que change… ? », « tu peux me dire… ? ») appelle une reponse, pas une modification : verifier dans le code si besoin, repondre, puis proposer l'action sans la lancer. N'agir que sur une demande explicite (verbe d'action : fais, corrige, applique, implemente, vasi, go).
 
 **Avant d'implémenter une tâche (issue, feature, demande) :** relire la demande pour repérer les points
 où plusieurs implémentations raisonnables donneraient des résultats visiblement différents
@@ -29,4 +31,4 @@ Rubrique vide : écrire « rien ». Pas pour les questions/réponses courtes.
 
 **When stuck in a loop:** After 3–4 back-and-forth attempts on the same problem without resolution, stop and produce a structured recap: (1) problem summary, (2) what was tried and why it failed, (3) remaining hypotheses. Then propose a direction rather than continuing blind.
 
-**Browser checks:** Never use Claude in Chrome (disabled, too costly on the Pro plan). When a front-end check needs a browser, give me a short test protocol (URL, steps, console snippet if useful, what to observe) and wait for my feedback.
+**Browser checks:** Never use Claude in Chrome (disabled, too costly on the Pro plan). Targeted self-checks are allowed with the T3 Code `preview_*` tools: navigate, then `preview_evaluate` assertions (text-only `preview_snapshot` only to orient, no screenshots). For visual/UX judgement, give me a short test protocol (URL, steps, what to observe) and wait for my feedback.

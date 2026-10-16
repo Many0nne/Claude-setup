@@ -4,12 +4,13 @@
   avec pour premier message la lecture du brief.
 
 .EXAMPLE
-  .\launch.ps1 -Dir C:\projets\NOP -Brief C:\projets\NOP\worktrees\.briefs\feature-x.md -Title feature-x
+  .\launch.ps1 -Dir C:\projets\NOP -Brief C:\projets\NOP\worktrees\.briefs\feature-x.md -Title feature-x -Model sonnet
 #>
 param(
   [Parameter(Mandatory)][string]$Dir,
   [Parameter(Mandatory)][string]$Brief,
-  [Parameter(Mandatory)][string]$Title
+  [Parameter(Mandatory)][string]$Title,
+  [ValidateSet('sonnet', 'opus', 'haiku')][string]$Model = 'opus'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -19,7 +20,7 @@ if (-not (Test-Path $Brief)) { throw "Brief introuvable : $Brief" }
 
 # Pas de ';' dans la commande : Windows Terminal l'interprete comme separateur de sous-commandes.
 $prompt = "Lis le brief $Brief puis execute-le en respectant toutes ses consignes." -replace "'", "''"
-$command = "claude '$prompt'"
+$command = "claude --model $Model '$prompt'"
 
 if (Get-Command wt -ErrorAction SilentlyContinue) {
   wt -w 0 new-tab --title $Title -d $Dir pwsh -NoExit -Command $command
