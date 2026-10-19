@@ -1,0 +1,1 @@
+- [Workshop git identity](workshop-git-identity.md) — commits/push uniquement en Many0nne, jamais de crédit Claude

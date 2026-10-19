@@ -14,7 +14,7 @@ Objectif : un script `scripts/<projet>-worktree.ps1` + une section "Worktrees" d
 - `.env` : quelles variables dependent des ports (URL d'API, CORS, URL front...) ? Ne lire que les cles (noms), jamais les valeurs (secrets).
 - Autres ressources partagees : volumes nommes, `container_name:` fixes (bloquent `COMPOSE_PROJECT_NAME`), noms de reseau externes.
 
-Sans Docker compose : pas de script, `git worktree` (ou `EnterWorktree` / `claude --worktree`) suffit. Proposer seulement une courte section `CLAUDE.md`, puis s'arreter.
+Sans Docker compose : si le projet n'a ni serveur ni port (lib, scripts), `git worktree` suffit : proposer seulement une courte section `CLAUDE.md`, puis s'arreter. S'il a des serveurs de dev a ports fixes, faire quand meme le script (meme contrat ci-dessous, "stack" = serveurs de dev lances en arriere-plan) : exemple de reference, T-Games (`C:\Users\tbarillon\Documents\Cours\T-Games\scripts\tgames-worktree*.ps1`).
 
 ## 2. Proposer le plan avant d'ecrire
 
@@ -26,8 +26,10 @@ Presenter a l'utilisateur, et attendre son accord :
 
 ## 3. Ecrire le script
 
+Modele complet dans `reference/` : `nop-worktree.ps1`, `nop-worktree-cleanup.ps1`, `install-cleanup-task.ps1`, `t3_threads.py` (copie du NOP actuel). Contrat attendu par `/delegate`, a respecter : idempotent (worktree existant sur la bonne branche reutilise, slot garde), demarrage par defaut avec verification des URL et sortie `[OK (...)]`, options `-NoUp`, `-NoRegister`, `-RegisterThread <id>`, registre `worktrees/.owners.json` + script de nettoyage et tache planifiee.
+
 Fonctionnalites minimales, reprises du modele :
-- `<Branch>` [-Base] [-Slot] [-Up] [-Remove] ; slug = branche avec `/` -> `-` ;
+- `<Branch>` [-Base] [-Slot] [-NoUp] [-Remove] [-NoRegister] [-RegisterThread] ; slug = branche avec `/` -> `-` ;
 - cree la branche depuis `origin/<Base>` si elle n'existe ni en local ni sur origin ; sinon worktree sur la branche existante (suivi d'origin) ;
 - copie le `.env` du checkout principal puis fixe `COMPOSE_PROJECT_NAME=<projet>-<slug>` et les ports du slot ;
 - slot libre auto : lire les ports deja pris dans les `.env` des worktrees existants ;

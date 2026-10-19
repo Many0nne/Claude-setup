@@ -62,7 +62,7 @@ Statut : EN COURS
 - Branche : `<branche>` (base `<base>`)
 - Worktree(s) : `<chemin>` [, `<chemin>`]. Ne modifier aucun fichier en dehors.
 - Tous les chemins utiles sont dans ce brief : ne pas lister ni explorer le dossier de lancement ni les checkouts principaux. Premiere commande shell : `cd <worktree>`.
-- Stack : <URL back> / <URL front>. Lancer les commandes `docker compose` depuis le worktree concerne.
+- Stack : <URL back> / <URL front>. Lancer les commandes `docker compose` depuis le worktree concerne. (Projet sans Docker : remplacer par les regles de la section "Worktrees" du `CLAUDE.md` du projet, ex. serveurs de dev lances par le script.)
 - Demarrer la stack (non demarree a la creation) : lancer `<commande de demarrage>` en arriere-plan (`run_in_background`) des le debut, puis lire le code pendant le build ; attendre la sortie `[OK]` avant tout test ou appel API.
 - Ne pas lire ni recopier les fichiers `.env`.
 
@@ -83,7 +83,7 @@ Statut : EN COURS
 Ce brief sert de liste de taches : cocher chaque critere d'acceptation des qu'il est rempli, et ajouter en bas (section `## Taches decouvertes`) tout ce qui apparait en cours de route, coche une fois fait. Le relire apres un resume de contexte (compaction) avant de reprendre.
 
 ## Avant de rendre la main
-1. Lancer les tests et le lint concernes **dans la stack Docker du worktree**, corriger jusqu'a ce qu'ils passent.
+1. Lancer les tests et le lint concernes **dans la stack Docker du worktree** (projet sans Docker : depuis le dossier du worktree, commandes du `CLAUDE.md` du projet), corriger jusqu'a ce qu'ils passent.
 2. Invoquer le skill `code-review` (niveau medium) sur le diff de la branche ; corriger les points confirmes qui sont dans le perimetre, lister les autres.
 3. Relecture croisee legere : lancer un sous-agent (outil Agent, `model: haiku`) avec ce brief et le diff de la branche, charge de verifier critere par critere que le diff couvre les criteres d'acceptation, et de relever les oublis classiques (tests manquants, migration/fixtures non mises a jour, composant existant non reutilise, texte en dur). Corriger ce qui est confirme.
 4. Ne pas pousser : l'utilisateur relit puis pousse lui-meme.

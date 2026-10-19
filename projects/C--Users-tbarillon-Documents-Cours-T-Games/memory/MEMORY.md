@@ -1,0 +1,2 @@
+- [Périmètre plateforme](platform-scope.md) — formats ouverts, mais jeux web, à distance, minimum de joueurs bas (pas d'audience attendue)
+- [Supprimer les branches mergées](delete-merged-branches.md) — après merge : worktree -Remove, branche locale et distante supprimées
