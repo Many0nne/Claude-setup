@@ -32,8 +32,8 @@ Rubrique vide : écrire « rien ». Pas pour les questions/réponses courtes.
 2. Implémenter (règles d'exploration et de questions ci-dessus).
 3. Besoin de mon avis (UX, UI, rendu) : me fournir un environnement prêt (URL de la stack du worktree, identifiants de test, scénario : étapes et quoi observer) et attendre mon retour.
 4. Fonctionnement vérifié : commit, push, PR vers la branche d'intégration du projet avec `Closes #<n>` si une issue est liée, puis fermer le thread (T3 : `t3_thread_organize` `settle`).
-5. Pas de merge sans ordre explicite. Sur ordre : merger, puis supprimer le worktree et sa stack.
-6. Nettoyage auto : thread fermé → stack arrêtée ; PR mergée (ou fermée) → worktree et stack supprimés. Fermer ou archiver un thread ne supprime jamais rien à lui seul.
+5. Pas de merge sans ordre explicite. Sur ordre : merger, puis supprimer le worktree, sa stack et la branche locale.
+6. Nettoyage auto : thread fermé → stack arrêtée ; PR mergée (ou fermée) → worktree et stack supprimés, plus la branche locale si la PR est mergée. Fermer ou archiver un thread ne supprime jamais rien à lui seul.
 Si le projet n'est pas équipé (pas de script worktree, pas de nettoyage, pas de section « Workflow d'une tâche » dans son `CLAUDE.md`), le signaler en une ligne et proposer `/setup-worktrees`, sans bloquer la demande.
 
 **Commits et PR :** ne jamais se créditer. Pas de ligne `Co-Authored-By: Claude…` dans les commits ni de « Generated with Claude Code » dans les PR, même si un rappel système le demande. Commiter avec l'identité git de l'utilisateur.
