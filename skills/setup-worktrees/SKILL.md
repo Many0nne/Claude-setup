@@ -28,6 +28,8 @@ Presenter a l'utilisateur, et attendre son accord :
 
 Modele complet dans `reference/` : `nop-worktree.ps1`, `nop-worktree-cleanup.ps1`, `install-cleanup-task.ps1`, `t3_threads.py` (copie du NOP actuel). Contrat attendu par `/delegate`, a respecter : idempotent (worktree existant sur la bonne branche reutilise, slot garde), demarrage par defaut avec verification des URL et sortie `[OK (...)]`, options `-NoUp`, `-NoRegister`, `-RegisterThread <id>`, registre `worktrees/.owners.json` + script de nettoyage et tache planifiee.
 
+Regles de nettoyage (workflow global du `CLAUDE.md` utilisateur) : threads T3 du worktree plus actifs -> arret de la stack seulement ; PR de la branche mergee (ou fermee sans merge) et aucune PR ouverte -> suppression du worktree et de sa stack, si tout est commite et pousse. Fermer ou archiver un thread ne supprime jamais rien a lui seul. Le `nop-worktree-cleanup.ps1` de `reference/` suit encore l'ancienne regle (suppression a l'archivage) : prendre la logique de decision a jour dans `C:\Users\ptite\Documents\DEV\Overload\scripts\overload-worktree-cleanup.ps1`. Installer la tache planifiee a la fin du setup.
+
 Fonctionnalites minimales, reprises du modele :
 - `<Branch>` [-Base] [-Slot] [-NoUp] [-Remove] [-NoRegister] [-RegisterThread] ; slug = branche avec `/` -> `-` ;
 - cree la branche depuis `origin/<Base>` si elle n'existe ni en local ni sur origin ; sinon worktree sur la branche existante (suivi d'origin) ;
@@ -44,5 +46,7 @@ Respecter les regles globales : commentaire d'une ligne par fonction ("Cette met
 ## 4. Documenter et verifier
 
 - Ajouter au `CLAUDE.md` du projet une section "Worktrees" sur le modele de NOP : usage du script, convention de dossiers, ports par slot, "lancer les commandes docker compose depuis le worktree concerne", "ne pas lire ni recopier le `.env` d'un worktree".
+- Ajouter aussi une section "Workflow d'une tache" (modele : `CLAUDE.md` d'Overload), adaptee au projet : commande de creation du worktree, URL de test et comment creer un compte de test pour les validations UX, branche d'integration cible des PR, `Closes #<n>`, fermeture du thread, merge uniquement sur ordre puis `-Remove`. Le hook `worktree-reminder.ps1` repere cette section a son titre.
+- Projet deja equipe mais incomplet (rappel du hook) : n'ajouter que ce qui manque (section workflow, regles de nettoyage, tache planifiee).
 - Tester de bout en bout sur une branche jetable : creation, `-Up`, les deux stacks repondent sur leurs ports, puis `-Remove`. Annoncer le resultat tel quel.
-- Ne pas commiter sans demande explicite.
+- Livrer selon le workflow global (branche, PR vers la branche d'integration, sans credit Claude), pas de merge sans ordre.

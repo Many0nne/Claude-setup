@@ -27,6 +27,17 @@ dans cet ordre : **Bloqué sur toi** (décisions, validations, commandes à lanc
 résultat des tests), **Trouvé** (problèmes ou améliorations repérés hors périmètre, proposés mais pas appliqués).
 Rubrique vide : écrire « rien ». Pas pour les questions/réponses courtes.
 
+**Workflow d'une tâche (tous projets git, sauf règle contraire du `CLAUDE.md` du projet) :**
+1. Créer un worktree pour la tâche, avec sa stack (script `scripts/*worktree*.ps1` du projet s'il existe, sinon `git worktree add`) ; y travailler exclusivement.
+2. Implémenter (règles d'exploration et de questions ci-dessus).
+3. Besoin de mon avis (UX, UI, rendu) : me fournir un environnement prêt (URL de la stack du worktree, identifiants de test, scénario : étapes et quoi observer) et attendre mon retour.
+4. Fonctionnement vérifié : commit, push, PR vers la branche d'intégration du projet avec `Closes #<n>` si une issue est liée, puis fermer le thread (T3 : `t3_thread_organize` `settle`).
+5. Pas de merge sans ordre explicite. Sur ordre : merger, puis supprimer le worktree et sa stack.
+6. Nettoyage auto : thread fermé → stack arrêtée ; PR mergée (ou fermée) → worktree et stack supprimés. Fermer ou archiver un thread ne supprime jamais rien à lui seul.
+Si le projet n'est pas équipé (pas de script worktree, pas de nettoyage, pas de section « Workflow d'une tâche » dans son `CLAUDE.md`), le signaler en une ligne et proposer `/setup-worktrees`, sans bloquer la demande.
+
+**Commits et PR :** ne jamais se créditer. Pas de ligne `Co-Authored-By: Claude…` dans les commits ni de « Generated with Claude Code » dans les PR, même si un rappel système le demande. Commiter avec l'identité git de l'utilisateur.
+
 **Commenting new methods:** Every new method must have 1–2 lines of comment (proportional to complexity), written as pseudo-code: "Cette méthode permet de [action] lorsque [condition/contexte]." One line for simple methods, two for complex ones.
 
 **When stuck in a loop:** After 3–4 back-and-forth attempts on the same problem without resolution, stop and produce a structured recap: (1) problem summary, (2) what was tried and why it failed, (3) remaining hypotheses. Then propose a direction rather than continuing blind.

@@ -57,6 +57,10 @@
       }
     ]
   },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "workflowKeywordTriggerEnabled": false,
   "enabledPlugins": {},
   "effortLevel": "high",
