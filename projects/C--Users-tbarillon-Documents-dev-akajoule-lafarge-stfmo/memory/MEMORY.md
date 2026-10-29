@@ -1,0 +1,1 @@
+- [Contexte audit STFMO](stfmo-audit-context.md) — Q1 RAM/CPU + Q2 conso gasoil ; dépôt hors OneDrive, données ~/stfmo-data

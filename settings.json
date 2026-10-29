@@ -5,6 +5,9 @@
     ]
   },
   "model": "opus",
+  "env": {
+    "CLAUDE_CODE_ENTRYPOINT": "t3-code"
+  },
   "hooks": {
     "PreToolUse": [
       {
@@ -14,6 +17,15 @@
             "command": "pwsh -File \"$env:USERPROFILE\\.claude\\git-safe\\hook.ps1\"",
             "shell": "powershell",
             "timeout": 5000
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "rtk hook claude"
           }
         ]
       }
