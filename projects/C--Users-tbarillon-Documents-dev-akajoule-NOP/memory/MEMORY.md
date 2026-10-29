@@ -1,0 +1,1 @@
+- [Push repo de setup OK](claude-setup-push-ok.md) — commit+push directs sur main de ~/.claude autorisés en permanence
