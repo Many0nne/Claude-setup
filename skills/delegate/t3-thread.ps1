@@ -25,7 +25,10 @@ $modelIds = @{ opus = 'claude-opus-5-5'; sonnet = 'claude-sonnet-5-5'; haiku = '
 function Invoke-T3Cli {
   $env:ELECTRON_RUN_AS_NODE = '1'
   # Le pipe force PowerShell a attendre l'exe (sous-systeme GUI) et a recuperer sa sortie.
-  try { & (Join-Path $t3Dir 'T3 Code (Alpha).exe') (Join-Path $t3Dir 'resources\server.asar\apps\server\dist\bin.mjs') @args 2>$null | ForEach-Object { $_ } }
+  # Nom de l'exe variable selon le canal (Alpha, Beta...) : prendre celui present, hors desinstalleur.
+  $exe = Get-ChildItem $t3Dir -Filter 'T3 Code*.exe' | Select-Object -First 1
+  if (-not $exe) { throw "Executable T3 Code introuvable dans $t3Dir." }
+  try { & $exe.FullName (Join-Path $t3Dir 'resources\server.asar\apps\server\dist\bin.mjs') @args 2>$null | ForEach-Object { $_ } }
   finally { Remove-Item Env:ELECTRON_RUN_AS_NODE }
 }
 
