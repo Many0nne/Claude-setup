@@ -112,4 +112,5 @@ Ce brief sert de liste de taches : cocher chaque critere d'acceptation des qu'il
    - **Modifie** : criteres d'acceptation coches, fichiers touches, resultat des tests, nombre de tours de revue ;
    - **Trouve** : points de review non traites, modifications hors perimetre proposees, erreur que l'agent a refaite ou que la revue a relevee plusieurs fois (candidate a `/lecon`).
    Rubrique vide : "rien".
+7. Si le `CLAUDE.md` du projet indique `Projet Todoist : <nom>` : creer une tache Todoist par point de « Bloque sur toi », selon la regle « Todoist » du `~/.claude/CLAUDE.md` (titre verbe + objet, description suffisante pour agir sans ouvrir le thread, lien du thread et de la PR, label, pas de doublon). Au retour de l'utilisateur, cocher les taches des points regles.
 ```

@@ -27,6 +27,15 @@ dans cet ordre : **Bloqué sur toi** (décisions, validations, commandes à lanc
 résultat des tests), **Trouvé** (problèmes ou améliorations repérés hors périmètre, proposés mais pas appliqués).
 Rubrique vide : écrire « rien ». Pas pour les questions/réponses courtes.
 
+**Todoist (ce qui attend mon attention) :** si le `CLAUDE.md` du projet indique `Projet Todoist : <nom>`, chaque point
+de **Bloqué sur toi** devient une tâche Todoist dans ce projet, au moment où la rubrique est écrite (sinon rien) :
+- titre : verbe + objet (« Tester PR #312 : filtre réseau de chaleur », « Trancher : arrondi des puissances ») ;
+- description : de quoi agir sans ouvrir le thread. Test : URL de la stack, identifiants, étapes, quoi observer.
+  Décision : question, options, recommandation. Toujours : lien du thread T3 et de la PR ;
+- label : `à-tester`, `décision`, `validation` ou `à-lancer` ; échéance « today » pour `à-tester`, aucune sinon ;
+- pas de doublon : chercher d'abord une tâche ouverte du projet citant le même thread ou la même PR, et la mettre à jour ;
+- coche auto : dès que le point est réglé (ma réponse dans le thread, validation reçue, commande lancée), cocher la tâche.
+
 **Workflow d'une tâche (tous projets git, sauf règle contraire du `CLAUDE.md` du projet) :**
 1. Créer un worktree pour la tâche, avec sa stack (script `scripts/*worktree*.ps1` du projet s'il existe, sinon `git worktree add`) ; y travailler exclusivement.
 2. Implémenter (règles d'exploration et de questions ci-dessus).
