@@ -12,7 +12,8 @@ Objectif : une tache = une branche = un worktree = une session Claude interactiv
 A partir de la demande et de la conversation (ne pas explorer le code pour cela, sauf si la tache est inintelligible sans) :
 - branche : celle donnee, sinon proposer `feature/<slug>` ou `fix/<slug>` ;
 - objectif, criteres d'acceptation verifiables, perimetre (fichiers/modules concernes) et hors-perimetre explicite ;
-- depots concernes si le projet en a plusieurs (cas NOP : back, front ou les deux).
+- depots concernes si le projet en a plusieurs (cas NOP : back, front ou les deux) ;
+- documentation metier, si le projet en a une de reference (cas NOP : `docs/metier/` du depot racine, voir son `README.md`) : documents qui decrivent ce que la tache touche (index du `README.md`, sections « Correspondance code »), et si la tache change une regle qu'ils decrivent. Sans lecture du code : seulement l'index et les documents cites.
 
 Si un point manque pour ecrire des criteres d'acceptation verifiables, poser la question plutot que d'inventer.
 
@@ -20,7 +21,7 @@ Si un point manque pour ecrire des criteres d'acceptation verifiables, poser la 
 
 Rediger le brief avec le modele ci-dessous (sans la section Environnement, encore inconnue), puis choisir le niveau :
 - **Lancement direct** : l'issue (ou la demande) donne deja une DoD ou des criteres verifiables, le perimetre est clair et aucune vraie decision (UX, regle metier, schema de donnees) n'est a trancher. Afficher le brief pour info et enchainer sur l'etape 3 sans attendre.
-- **Validation** : sinon. Afficher le brief avec les questions ouvertes (une recommandation par question) et **ne rien creer avant l'accord explicite**. Integrer les corrections et reafficher si elles sont substantielles.
+- **Validation** : sinon, et toujours si la tache change une regle decrite dans la documentation metier. Afficher le brief avec les questions ouvertes (une recommandation par question) et **ne rien creer avant l'accord explicite**. Integrer les corrections et reafficher si elles sont substantielles.
 
 Choisir aussi le modele de la session deleguee (l'annoncer en une ligne avec la raison) :
 - `sonnet` : tache mecanique ou bien cadree (conflits, rebase, CI, retours de review/Sonar, correctif localise, petite feature avec spec claire suivant un motif existant) ;
@@ -34,6 +35,7 @@ En cas de doute, `opus`. L'utilisateur peut imposer le modele dans sa demande.
 - Projet equipe (`scripts/*worktree*.ps1` a la racine, voir la section "Worktrees" du `CLAUDE.md` du projet) : lancer le script avec la branche, `-NoUp` (quelques secondes, pas de build Docker) et `-NoRegister` (le thread courant ne fait que deleguer : il ne doit pas compter parmi les proprietaires du worktree, sinon le nettoyage attend aussi sa fin). Relever dans sa sortie le slot, les URL et les dossiers crees. Le demarrage des stacks est delegue a la session (etape « Demarrer la stack » du brief), pour que la delegation soit quasi instantanee.
   - Indiquer dans le brief la commande de demarrage exacte : le meme script avec la branche, sans `-NoUp` (idempotent, gere la 2e instance du cote absent et verifie les URL).
   - Si la tache n'a besoin que d'un cote (ex. review back sans verification visuelle), le preciser : la session peut se contenter de `docker compose up -d --build` dans le worktree concerne.
+  - Si la tache modifie la documentation metier (cas NOP : `docs/metier/` du depot racine), ajouter `-Docs` : le script cree aussi un worktree du depot racine sur la meme branche (`worktrees/NOP-<slug>`), supprime avec les autres. Le reporter dans le brief.
 - Projet non equipe sans Docker : `git worktree add <racine>/worktrees/<slug> -b <branche> origin/<base>` (ou sans `-b` si la branche existe). Si `worktrees/` n'est pas ignore (`git check-ignore -q worktrees`), l'ajouter a `.git/info/exclude` (local, pas de modification suivie).
 - Projet non equipe avec Docker compose : s'arreter et proposer `/setup-worktrees` d'abord.
 
@@ -83,22 +85,31 @@ Statut : EN COURS
 ## Contexte utile
 <decisions deja prises, pieges connus, liens vers spec/issue ; omettre si vide>
 
+## Documentation metier
+<omettre si le projet n'en a pas>
+- Documents concernes : `<chemin>` [, `<chemin>`] (a lire avant de coder), ou « aucun ».
+- Regle metier modifiee : <laquelle>, ou « aucune ». Si une regle change : proposer la modification des documents dans le cadrage, avec les autres questions, et attendre la validation avant d'ecrire le code. Le code suit le document valide.
+- Ecart constate entre le code et un document : le signaler dans le compte rendu (et dans la section « Ecarts connus » du document si la tache le modifie), ne jamais aligner l'un sur l'autre sans le dire.
+- Worktree de la documentation : `<dossier>`, ou « aucun ». Si un document doit finalement changer et que ce worktree n'existe pas : le creer avec le script de worktree du projet (cas NOP : relancer `nop-worktree.ps1 <branche> -Docs -NoUp`, idempotent), jamais modifier le checkout principal du depot de la doc.
+
 ## Suivi
 Ce brief sert de liste de taches : cocher chaque critere d'acceptation des qu'il est rempli, et ajouter en bas (section `## Taches decouvertes`) tout ce qui apparait en cours de route, coche une fois fait. Le relire apres un resume de contexte (compaction) avant de reprendre.
 
 ## Avant de rendre la main
 1. Lancer les tests et le lint concernes **dans la stack Docker du worktree** (projet sans Docker : depuis le dossier du worktree, commandes du `CLAUDE.md` du projet), corriger jusqu'a ce qu'ils passent.
-2. Invoquer le skill `code-review` (niveau medium) sur le diff de la branche ; corriger les points confirmes qui sont dans le perimetre, lister les autres.
-3. Relecture croisee legere : lancer un sous-agent (outil Agent, `model: haiku`) avec ce brief et le diff de la branche, charge de verifier critere par critere que le diff couvre les criteres d'acceptation, et de relever les oublis classiques (tests manquants, migration/fixtures non mises a jour, composant existant non reutilise, texte en dur). Corriger ce qui est confirme.
+2. Boucle de revue, 3 tours au plus : invoquer le skill `code-review` sur le diff de la branche, niveau **high** au 1er tour puis **medium** aux suivants ; corriger les points confirmes qui sont dans le perimetre, relancer les tests concernes, puis refaire un tour. S'arreter des qu'un tour ne trouve plus rien de confirme dans le perimetre, ou apres le 3e tour. Les points hors perimetre sont listes, pas corriges. Noter le nombre de tours et ce qui reste ouvert pour le compte rendu.
+3. Relecture croisee legere : lancer un sous-agent (outil Agent, `model: haiku`) avec ce brief et le diff de la branche, charge de verifier critere par critere que le diff couvre les criteres d'acceptation, et de relever les oublis classiques (tests manquants, migration/fixtures non mises a jour, composant existant non reutilise, texte en dur, document metier valide mais non reporte dans le code ou l'inverse). Corriger ce qui est confirme.
 4. Livraison selon le `CLAUDE.md` du projet :
    - s'il definit un workflow de tache (cas Overload, section "Workflow d'une tache") : le suivre. Besoin d'un avis de l'utilisateur (UX, UI) -> environnement pret (URL du worktree, compte de test, scenario) et statut `BLOQUE` en attendant son retour ; fonctionnement verifie -> commit, push, PR vers la branche d'integration du projet avec `Closes #<n>` si une issue est liee, puis fermer le thread (`t3_thread_organize` action `settle`). Pas de merge sans ordre explicite de l'utilisateur ;
-   - sinon : ne pas pousser, l'utilisateur relit puis pousse lui-meme.
+   - sinon : ne pas pousser, l'utilisateur relit puis pousse lui-meme. Rediger quand meme la description de PR (dans le compte rendu) pour qu'il n'ait qu'a la coller.
+   Description de PR : suivre le `.github/pull_request_template.md` du depot s'il existe. « Preuves » = commandes lancees et leur resultat (etapes 1 et 5), « A relire en priorite » = les zones de la rubrique « A verifier » (3 a 5 extraits `fichier:ligne`, chacun avec sa preuve). Le niveau de risque est pose par l'action « Risque PR » du depot : ne signaler dans « Risque » que ce qu'elle ne peut pas voir (donnees de prod, ordre de merge back/front, retrocompatibilite).
+   Documentation metier modifiee : commit et PR dans le depot de la doc (cas NOP : depot racine, depuis `worktrees/NOP-<slug>`), les deux PR se citant l'une l'autre.
    Dans tous les cas, aucun credit Claude : pas de `Co-Authored-By` dans les commits ni de « Generated with Claude Code » dans les PR ; identite git de l'utilisateur.
 5. Preparer la verification humaine : stack du worktree demarree (back et front), donnees de test chargees. Pour un changement front, se verifier d'abord soi-meme par assertions `preview_evaluate` (outils `preview_*` de T3, pas de capture d'ecran) ; l'utilisateur ne garde que le jugement visuel.
 6. Ecrire le compte rendu **a la fin de ce fichier de brief** (section `## Compte rendu`) et passer la ligne `Statut :` a `FINI` ou `BLOQUE` (le tableau de bord de l'utilisateur la lit), puis l'afficher aussi dans la session. Contenu, dans cet ordre :
    - **Bloque sur toi** : questions ouvertes, decisions, validations ;
    - **A verifier** (dossier de revue) : les 3 zones les plus risquees du diff (fichier:ligne, pourquoi) ; ce qui a ete verifie et comment (tests, requetes, appels API) ; pour chaque comportement visible, un lien direct vers l'ecran de la stack du worktree et le scenario a suivre (etapes, resultat attendu) ;
-   - **Modifie** : criteres d'acceptation coches, fichiers touches, resultat des tests ;
-   - **Trouve** : points de review non traites, modifications hors perimetre proposees.
+   - **Modifie** : criteres d'acceptation coches, fichiers touches, resultat des tests, nombre de tours de revue ;
+   - **Trouve** : points de review non traites, modifications hors perimetre proposees, erreur que l'agent a refaite ou que la revue a relevee plusieurs fois (candidate a `/lecon`).
    Rubrique vide : "rien".
 ```
