@@ -27,8 +27,11 @@ dans cet ordre : **Bloqué sur toi** (décisions, validations, commandes à lanc
 résultat des tests), **Trouvé** (problèmes ou améliorations repérés hors périmètre, proposés mais pas appliqués).
 Rubrique vide : écrire « rien ». Pas pour les questions/réponses courtes.
 
-**Todoist (ce qui attend mon attention) :** si le `CLAUDE.md` du projet indique `Projet Todoist : <nom>`, chaque point
-de **Bloqué sur toi** devient une tâche Todoist dans ce projet, au moment où la rubrique est écrite (sinon rien) :
+**Todoist (ce qui attend mon attention) :** si le dossier de travail est sous un des chemins ci-dessous, chaque point
+de **Bloqué sur toi** devient une tâche Todoist dans le projet associé, au moment où la rubrique est écrite (sinon rien) :
+- `C:\Users\tbarillon\Documents\dev\akajoule\NOP` (worktrees compris) -> « Outil NOP »
+
+Règles de la tâche :
 - titre : verbe + objet (« Tester PR #312 : filtre réseau de chaleur », « Trancher : arrondi des puissances ») ;
 - description : de quoi agir sans ouvrir le thread. Test : URL de la stack, identifiants, étapes, quoi observer.
   Décision : question, options, recommandation. Toujours : lien du thread T3 et de la PR ;
