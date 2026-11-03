@@ -1,13 +1,19 @@
 {
+  "env": {
+    "CLAUDE_CODE_ENTRYPOINT": "t3-code"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "permissions": {
+    "blockWritesOutsideWorkingDirectories": true,
+    "additionalDirectories": ["C:\\Users\\tbarillon\\.claude"],
     "allow": [
       "Read(~/.claude/**)"
     ]
   },
   "model": "opus",
-  "env": {
-    "CLAUDE_CODE_ENTRYPOINT": "t3-code"
-  },
   "hooks": {
     "PreToolUse": [
       {
@@ -69,10 +75,6 @@
       }
     ]
   },
-  "attribution": {
-    "commit": "",
-    "pr": ""
-  },
   "workflowKeywordTriggerEnabled": false,
   "enabledPlugins": {},
   "effortLevel": "high",
@@ -88,7 +90,7 @@
   "autoUpdatesChannel": "latest",
   "theme": "auto",
   "autoCompactEnabled": false,
+  "switchModelsOnFlag": false,
   "autoContinueAtUsageLimit": false,
-  "agentPushNotifEnabled": true,
-  "switchModelsOnFlag": false
+  "agentPushNotifEnabled": true
 }
