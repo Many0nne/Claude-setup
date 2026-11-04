@@ -38,8 +38,8 @@ Règles de la tâche :
 - label : `à-tester`, `décision`, `validation` ou `à-lancer` ; échéance « today » pour `à-tester`, aucune sinon ;
 - pas de doublon : chercher d'abord une tâche ouverte du projet citant le même thread ou la même PR, et la mettre à jour ;
 - coche auto : dès que le point est réglé (ma réponse dans le thread, validation reçue, commande lancée), cocher la tâche.
-  Pour « Outil NOP », la tâche planifiée « NOP worktree cleanup » coche aussi toute tâche dont les PR citées sont toutes mergées :
-  y mettre l'URL complète de chaque PR (`https://github.com/<org>/<depot>/pull/<n>`).
+  La tâche planifiée « Todoist coche auto » (`~/.claude/scripts/todoist-coche-auto.ps1`, toutes les 10 min) coche aussi
+  toute tâche dont les PR citées sont toutes mergées : y mettre l'URL complète de chaque PR (`https://github.com/<org>/<depot>/pull/<n>`).
 
 **Workflow d'une tâche (tous projets git, sauf règle contraire du `CLAUDE.md` du projet) :**
 1. Créer un worktree pour la tâche, avec sa stack (script `scripts/*worktree*.ps1` du projet s'il existe, sinon `git worktree add`) ; y travailler exclusivement.

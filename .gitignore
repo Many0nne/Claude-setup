@@ -21,6 +21,9 @@
 !/hooks/
 !/statusline.ps1
 
+# Scripts perso lances par des taches planifiees
+!/scripts/
+
 # Mémoire globale + mémoire des agents
 !/memory/
 !/agent-memory/
