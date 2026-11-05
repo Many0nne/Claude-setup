@@ -48,6 +48,7 @@ Pour chaque issue, estimer les fichiers/modules qu'elle touchera :
 2. Chercher dans le code du depot (checkout principal, branche `dev`, lecture seule) les fichiers concernes : noms de modeles, vues, serializers, composants, stores, routes, cles i18n cites ou deduits.
 3. Noter : depot(s) concerne(s), fichiers probables, fichiers transverses (migrations du meme app Django, `settings`, `urls.py`, `package.json`, lockfiles, router, store global, composants partages, CI `.github/workflows`), et le niveau de confiance (haute si l'issue cite des fichiers, basse si deduit).
 4. Signaler aussi si l'issue a besoin d'un changement de l'autre depot (contrat d'API) ou porte le label `... Calculs a valider` (validation metier requise avant de livrer).
+5. Documentation metier (cas NOP : `docs/metier/` du depot racine) : noter les documents qui decrivent ce que l'issue touche (index du `README.md`, sections « Correspondance code »), et si l'issue change une regle qu'ils decrivent (le document sera alors modifie dans la tache).
 
 L'invocation du skill vaut autorisation de lancer des sous-agents : au-dela de ~5 issues, repartir l'etape 4 sur des sous-agents `Explore` en parallele (un lot d'issues chacun, depot indique), qui rendent pour chaque issue la liste de fichiers, les fichiers transverses, les dependances et la confiance. Ne pas leur demander de modifier quoi que ce soit.
 
@@ -57,7 +58,8 @@ Deux elements (issue/PR ou issue/issue) sont en conflit si :
 - ils modifient un meme fichier ;
 - ou ils ajoutent tous deux une migration dans la meme app Django (numerotation concurrente) ;
 - ou ils touchent un meme fichier transverse a fort risque (lockfile, `package.json`, `requirements*`, `settings`, workflow CI) ;
-- ou l'un depend explicitement de l'autre (« suite de », « bloque par », contrat d'API cree par une PR non mergee).
+- ou l'un depend explicitement de l'autre (« suite de », « bloque par », contrat d'API cree par une PR non mergee) ;
+- ou ils modifient tous deux un meme document metier (regle changee de part et d'autre). Le simple fait de lire le meme document n'est pas un conflit.
 
 Meme module mais fichiers differents = « chevauchement leger » : autorise, a signaler.
 
@@ -67,17 +69,19 @@ Classement :
 
 Puis construire les lots parmi les disponibles : graphe de conflits issue/issue, et grouper glouton en commencant par les issues en retard puis par echeance, de sorte qu'aucune paire d'un meme lot ne soit en conflit. Lot 1 = ce qu'on peut lancer tout de suite en parallele ; lots suivants = a lancer apres le merge du lot precedent.
 
+Capacite du poste : chaque issue lancee demarre sa propre stack Docker (paire back+front du worktree). Si le lot 1 depasse la limite de stacks demarrees en meme temps (rubrique « Capacite du poste » du `~/.claude/CLAUDE.md`, 2 a defaut), le decouper en sous-lots 1a, 1b... de cette taille, par ordre de priorite (en retard, puis echeance) : un sous-lot demarre quand des stacks du precedent se liberent (PR ouverte et thread ferme), sans attendre de merge.
+
 ## 6. Rapport
 
 En chat, dans cet ordre :
 
 1. **Iteration** : milestones retenus, nombre d'issues par depot.
-2. **Lot 1 (parallelisable maintenant)** : tableau `issue | depot | titre | fichiers principaux | confiance | remarques` (en retard, calcul a valider, back+front).
+2. **Lot 1 (parallelisable maintenant)**, par sous-lot s'il a fallu le decouper (capacite du poste) : tableau `issue | depot | titre | fichiers principaux | confiance | remarques` (en retard, calcul a valider, back+front, regle metier modifiee avec le document concerne).
 3. **Lots suivants** : meme tableau, avec pour chaque issue l'issue du lot precedent avec laquelle elle entre en conflit.
 4. **Bloquees par une PR ouverte** : `issue | PR bloquante (auteur, brouillon ?) | raison`.
 5. **Deja en cours** : `issue | PR`.
 6. **Incertitudes** : issues trop vagues pour estimer l'empreinte (confiance basse), dependances supposees a confirmer.
-7. **Commandes /delegate** pour le lot 1 uniquement, une par issue, pretes a copier :
+7. **Commandes /delegate** pour le lot 1 uniquement, une par issue, groupees par sous-lot, pretes a copier :
    `/delegate <fix|feature>/<num>-<slug-court> Implementer <owner>/<repo>#<num> : <titre>`
    (`fix/` pour un bug, `feature/` sinon ; issue back+front : une seule commande qui le precise). Ne pas les lancer.
 

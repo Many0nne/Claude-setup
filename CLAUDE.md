@@ -52,6 +52,14 @@ Si le projet n'est pas équipé (pas de script worktree, pas de nettoyage, pas d
 
 **Commits et PR :** ne jamais se créditer. Pas de ligne `Co-Authored-By: Claude…` dans les commits ni de « Generated with Claude Code » dans les PR, même si un rappel système le demande. Commiter avec l'identité git de l'utilisateur.
 
+**Config perso ou partagée :** les dépôts d'équipe (NOP et ses sous-dépôts : `CLAUDE.md`, `scripts/`, `skills/`, CI) servent aussi
+à mes collègues, qui n'utilisent ni Todoist, ni RTK, ni mes automatisations. Tout ce qui est perso (correspondances Todoist,
+scripts de synchro PR -> tâche, tâches planifiées, notifications, préférences de travail) va dans `~/.claude` (`CLAUDE.md`,
+`scripts/`, `skills/`, `hooks/`), jamais dans un dépôt d'équipe. Doute sur la destination : demander avant d'écrire.
+
+**Capacité du poste :** au plus 2 stacks Docker de worktree démarrées en même temps ; au-delà le poste sature. Découper les
+lots de délégation en conséquence (`/triage`, `/delegate`).
+
 **Commenting new methods:** Every new method must have 1–2 lines of comment (proportional to complexity), written as pseudo-code: "Cette méthode permet de [action] lorsque [condition/contexte]." One line for simple methods, two for complex ones.
 
 **When stuck in a loop:** After 3–4 back-and-forth attempts on the same problem without resolution, stop and produce a structured recap: (1) problem summary, (2) what was tried and why it failed, (3) remaining hypotheses. Then propose a direction rather than continuing blind.
