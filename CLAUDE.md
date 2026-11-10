@@ -27,20 +27,6 @@ dans cet ordre : **Bloqué sur toi** (décisions, validations, commandes à lanc
 résultat des tests), **Trouvé** (problèmes ou améliorations repérés hors périmètre, proposés mais pas appliqués).
 Rubrique vide : écrire « rien ». Pas pour les questions/réponses courtes.
 
-**Todoist (ce qui attend mon attention) :** si le dossier de travail est sous un des chemins ci-dessous, chaque point
-de **Bloqué sur toi** devient une tâche Todoist dans le projet associé, au moment où la rubrique est écrite (sinon rien) :
-- `C:\Users\tbarillon\Documents\dev\akajoule\NOP` (worktrees compris) -> « Outil NOP »
-
-Règles de la tâche :
-- titre : verbe + objet (« Tester PR #312 : filtre réseau de chaleur », « Trancher : arrondi des puissances ») ;
-- description : de quoi agir sans ouvrir le thread. Test : URL de la stack, identifiants, étapes, quoi observer.
-  Décision : question, options, recommandation. Toujours : lien du thread T3 et de la PR ;
-- label : `à-tester`, `décision`, `validation` ou `à-lancer` ; échéance « today » pour `à-tester`, aucune sinon ;
-- pas de doublon : chercher d'abord une tâche ouverte du projet citant le même thread ou la même PR, et la mettre à jour ;
-- coche auto : dès que le point est réglé (ma réponse dans le thread, validation reçue, commande lancée), cocher la tâche.
-  La tâche planifiée « Todoist coche auto » (`~/.claude/scripts/todoist-coche-auto.ps1`, toutes les 10 min) coche aussi
-  toute tâche dont les PR citées sont toutes mergées : y mettre l'URL complète de chaque PR (`https://github.com/<org>/<depot>/pull/<n>`).
-
 **Workflow d'une tâche (tous projets git, sauf règle contraire du `CLAUDE.md` du projet) :**
 1. Créer un worktree pour la tâche, avec sa stack (script `scripts/*worktree*.ps1` du projet s'il existe, sinon `git worktree add`) ; y travailler exclusivement.
 2. Implémenter (règles d'exploration et de questions ci-dessus).
@@ -53,9 +39,20 @@ Si le projet n'est pas équipé (pas de script worktree, pas de nettoyage, pas d
 **Commits et PR :** ne jamais se créditer. Pas de ligne `Co-Authored-By: Claude…` dans les commits ni de « Generated with Claude Code » dans les PR, même si un rappel système le demande. Commiter avec l'identité git de l'utilisateur.
 
 **Config perso ou partagée :** les dépôts d'équipe (NOP et ses sous-dépôts : `CLAUDE.md`, `scripts/`, `skills/`, CI) servent aussi
-à mes collègues, qui n'utilisent ni Todoist, ni RTK, ni mes automatisations. Tout ce qui est perso (correspondances Todoist,
-scripts de synchro PR -> tâche, tâches planifiées, notifications, préférences de travail) va dans `~/.claude` (`CLAUDE.md`,
+à mes collègues, qui n'utilisent ni RTK, ni mes automatisations. Tout ce qui est perso (tâches planifiées,
+notifications, préférences de travail) va dans `~/.claude` (`CLAUDE.md`,
 `scripts/`, `skills/`, `hooks/`), jamais dans un dépôt d'équipe. Doute sur la destination : demander avant d'écrire.
+
+**Modèle du thread :** en cours de discussion, si la suite ne demande plus Opus, rétrograder le thread courant
+(T3 : `t3_thread_configure` sans `threadId`, `{"instanceId": "claudeAgent", "model": "claude-sonnet-5-5"}`, valeurs
+à vérifier via `orchestrator_capabilities`) et l'annoncer en une ligne avec la raison. Ça prend effet au tour suivant.
+- Sonnet : suite mécanique ou bien cadrée (décisions tranchées, plan validé à dérouler, rebase, CI, retours de review,
+  correctif localisé, petite feature suivant un motif existant, questions/réponses courtes, rédaction ou mise en forme).
+- Rester sur Opus : conception, spec floue, debug dont la cause est inconnue, arbitrage de design/DA/game feel, plusieurs
+  modules touchés, ou après une boucle d'échecs (règle « When stuck in a loop »).
+- Doute ou cas limite : ne pas basculer, proposer la bascule en une ligne et me laisser trancher.
+- Remontée : si le thread rétrogradé tombe sur un cas « rester sur Opus », repasser sur `claude-opus-5-5` et l'annoncer.
+- Ne jamais basculer si j'ai choisi le modèle explicitement. Hors T3 (pas d'outil), suggérer `/model sonnet` sans agir.
 
 **Capacité du poste :** au plus 2 stacks Docker de worktree démarrées en même temps ; au-delà le poste sature. Découper les
 lots de délégation en conséquence (`/triage`, `/delegate`).
