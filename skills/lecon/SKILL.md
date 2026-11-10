@@ -27,7 +27,7 @@ Du plus fort au plus faible, retenir le premier qui convient :
    `CLAUDE.md` de sous-dossier (ex. `app/tests/CLAUDE.md`, `src/utils/CLAUDE.md`) > `CLAUDE.md` du depot >
    `CLAUDE.md` racine du projet (outillage, worktrees) > `~/.claude/CLAUDE.md` (vaut pour tous les projets).
 3. **Skill** si la lecon est une procedure en plusieurs etapes : modifier le skill qui fait deja ce travail
-   (`/delegate`, `/pr-maintenance`...) plutot qu'en creer un.
+   (`/delegate`, `/triage`...) plutot qu'en creer un.
 
 Pour un garde-fou automatique, verifier qu'il echoue bien sur l'erreur d'origine et passe sur le code actuel
 (sinon il casse la CI de toute l'equipe).

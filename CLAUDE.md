@@ -61,6 +61,8 @@ lots de délégation en conséquence (`/triage`, `/delegate`).
 
 **When stuck in a loop:** After 3–4 back-and-forth attempts on the same problem without resolution, stop and produce a structured recap: (1) problem summary, (2) what was tried and why it failed, (3) remaining hypotheses. Then propose a direction rather than continuing blind.
 
+**Git sur ce poste :** un outil de diff externe est configuré ; `git range-diff` plante sans `--no-ext-diff` (`unsupported filetype`). Toujours passer `--no-ext-diff` à `range-diff` (contrôle qu'aucune modification n'a disparu après un rebase).
+
 **Browser checks:** Never use Claude in Chrome (disabled, too costly on the Pro plan). Targeted self-checks are allowed with the T3 Code `preview_*` tools: navigate, then `preview_evaluate` assertions (text-only `preview_snapshot` only to orient, no screenshots). For visual/UX judgement, give me a short test protocol (URL, steps, what to observe) and wait for my feedback.
 
 @RTK.md
