@@ -51,13 +51,45 @@ function Invoke-Ruff([string]$Root, [string[]]$Files, [switch]$Format) {
   } finally { Pop-Location }
 }
 
-# Cette methode permet de lancer ESLint (sans --fix) sur des fichiers lorsque le depot a une config et ses node_modules ;
-# renvoie le texte des erreurs, vide si tout passe ou si ESLint est indisponible.
+# Cette methode permet de trouver, parmi les services Docker Compose demarres du depot, celui qui contient ESLint
+# lorsque les node_modules ne sont installes que dans le conteneur (worktrees NOP) ; renvoie son nom, vide sinon.
+function Find-EslintService([string]$Root) {
+  $composeFiles = 'compose.yaml', 'compose.yml', 'docker-compose.yml', 'docker-compose.yaml'
+  if (-not ($composeFiles | Where-Object { Test-Path (Join-Path $Root $_) })) { return '' }
+  Push-Location $Root
+  try {
+    foreach ($svc in @(docker compose ps --services --status running 2>$null)) {
+      docker compose exec -T $svc sh -c 'test -x node_modules/.bin/eslint' 2>$null
+      if ($LASTEXITCODE -eq 0) { return $svc }
+    }
+    return ''
+  } finally { Pop-Location }
+}
+
+# Cette methode permet de lancer ESLint dans le conteneur `$Service` sur des fichiers du depot lorsque l'hote n'a pas
+# de node_modules ; les chemins sont passes relatifs a la racine, montee comme repertoire de travail du conteneur.
+function Invoke-EslintDocker([string]$Root, [string]$Service, [string[]]$Files) {
+  $rootFull = (Resolve-Path $Root).Path.TrimEnd('\') + '\'
+  $relatifs = @($Files | ForEach-Object { (Resolve-Path $_).Path.Replace($rootFull, '').Replace('\', '/') })
+  Push-Location $Root
+  try {
+    $out = docker compose exec -T $Service node_modules/.bin/eslint @relatifs 2>&1 | Out-String
+    if ($LASTEXITCODE -ne 0) { return $out.Trim() }
+    return ''
+  } finally { Pop-Location }
+}
+
+# Cette methode permet de lancer ESLint (sans --fix) sur des fichiers lorsque le depot a une config, avec ses node_modules
+# locaux, sinon dans un conteneur Compose demarre ; renvoie le texte des erreurs, vide si tout passe.
 function Invoke-Eslint([string]$Root, [string[]]$Files) {
   $hasConfig = Get-ChildItem -Path $Root -Filter 'eslint.config.*' -File -ErrorAction SilentlyContinue
   $eslint = Join-Path $Root 'node_modules\.bin\eslint.cmd'
   if (-not $hasConfig) { return '' }
-  if (-not (Test-Path $eslint)) { return "ESLint non lance dans $Root : node_modules absent (yarn install a faire dans ce worktree)." }
+  if (-not (Test-Path $eslint)) {
+    $service = Find-EslintService $Root
+    if ($service) { return Invoke-EslintDocker $Root $service $Files }
+    return "ESLint non lance dans $Root : ni node_modules local ni conteneur Compose demarre avec ESLint (demarrer la stack du worktree ou yarn install)."
+  }
   Push-Location $Root
   try {
     $out = & $eslint @Files 2>&1 | Out-String
