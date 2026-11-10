@@ -54,7 +54,7 @@ notifications, préférences de travail) va dans `~/.claude` (`CLAUDE.md`,
 - Remontée : si le thread rétrogradé tombe sur un cas « rester sur Opus », repasser sur `claude-opus-5-5` et l'annoncer.
 - Ne jamais basculer si j'ai choisi le modèle explicitement. Hors T3 (pas d'outil), suggérer `/model sonnet` sans agir.
 
-**Capacité du poste :** au plus 2 stacks Docker de worktree démarrées en même temps ; au-delà le poste sature. Découper les
+**Capacité du poste :** au plus 3 stacks Docker de worktree démarrées en même temps ; au-delà le poste sature. Découper les
 lots de délégation en conséquence (`/triage`, `/delegate`).
 
 **Commenting new methods:** Every new method must have 1–2 lines of comment (proportional to complexity), written as pseudo-code: "Cette méthode permet de [action] lorsque [condition/contexte]." One line for simple methods, two for complex ones.

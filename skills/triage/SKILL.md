@@ -69,7 +69,7 @@ Classement :
 
 Puis construire les lots parmi les disponibles : graphe de conflits issue/issue, et grouper glouton en commencant par les issues en retard puis par echeance, de sorte qu'aucune paire d'un meme lot ne soit en conflit. Lot 1 = ce qu'on peut lancer tout de suite en parallele ; lots suivants = a lancer apres le merge du lot precedent.
 
-Capacite du poste : chaque issue lancee demarre sa propre stack Docker (paire back+front du worktree). Si le lot 1 depasse la limite de stacks demarrees en meme temps (rubrique « Capacite du poste » du `~/.claude/CLAUDE.md`, 2 a defaut), le decouper en sous-lots 1a, 1b... de cette taille, par ordre de priorite (en retard, puis echeance) : un sous-lot demarre quand des stacks du precedent se liberent (PR ouverte et thread ferme), sans attendre de merge.
+Capacite du poste : chaque issue lancee demarre sa propre stack Docker (paire back+front du worktree). Si le lot 1 depasse la limite de stacks demarrees en meme temps (rubrique « Capacite du poste » du `~/.claude/CLAUDE.md`, 3 a defaut), le decouper en sous-lots 1a, 1b... de cette taille, par ordre de priorite (en retard, puis echeance) : un sous-lot demarre quand des stacks du precedent se liberent (PR ouverte et thread ferme), sans attendre de merge.
 
 ## 6. Rapport
 
