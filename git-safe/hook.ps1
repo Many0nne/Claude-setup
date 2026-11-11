@@ -80,6 +80,18 @@ if (Test-Path $configPath) {
     }
 }
 
+# Cette methode permet d'isoler les arguments de chaque appel `git <sub>` d'une commande lorsqu'un raccourci court
+# (-n, -f) doit etre cherche : textes entre guillemets retires, coupe aux &&, ||, ;, | et retours a la ligne.
+function Get-GitArgs {
+    param([string]$Command, [string]$Sub)
+    $clean = $Command -replace '"[^"\r\n]*"', '""' -replace "'[^'\r\n]*'", "''"
+    $result = @()
+    foreach ($seg in ($clean -split '&&|\|\||;|\||\r?\n')) {
+        if ($seg -match "\bgit\s+$Sub\b(.*)$") { $result += $Matches[1] }
+    }
+    return $result
+}
+
 # Check if an operation is allowed via config
 function Test-Allowed {
     param([string]$Op)
@@ -102,7 +114,8 @@ if ($command -match 'git\s+(commit|merge|push|cherry-pick|revert|am)\s.*--no-ver
     }
 }
 # Also catch -n shorthand for commit (git commit -n is --no-verify)
-if ($command -match 'git\s+commit\s+(-[a-zA-Z]*n[a-zA-Z]*\b|.*\s-[a-zA-Z]*n[a-zA-Z]*\b)') {
+# (only inside the git commit segment: a chained `grep -n` or a message containing " -n" is not a commit flag)
+if (@(Get-GitArgs $command 'commit' | Where-Object { $_ -match '(^|\s)-[a-zA-Z]*n[a-zA-Z]*(\s|$)' }).Count -gt 0) {
     if ($command -notmatch '--no-verify') {
         if (-not (Test-Allowed 'no-verify')) {
             Block-Tool "git-safe: git commit -n skips pre-commit hooks (same as --no-verify). Suggestion: Remove -n and let pre-commit hooks run. Add 'allow: no-verify' to .git-safe only if you understand the risk."
@@ -118,7 +131,7 @@ if ($command -match 'git\s+push\s.*--force(\s|$)') {
         Block-Tool "git-safe: Force push can rewrite remote history and lose commits for other collaborators. Suggestion: Use --force-with-lease instead, or add 'allow: push --force' to .git-safe."
     }
 }
-if ($command -match 'git\s+push\s+(-[a-zA-Z]*f\b|.*\s-[a-zA-Z]*f\b)') {
+if (@(Get-GitArgs $command 'push' | Where-Object { $_ -match '(^|\s)-[a-zA-Z]*f[a-zA-Z]*(\s|$)' }).Count -gt 0) {
     if ($command -notmatch '--force') {
         if (-not (Test-Allowed 'push --force')) {
             Block-Tool "git-safe: Force push (-f) can rewrite remote history and lose commits. Suggestion: Use --force-with-lease instead, or add 'allow: push --force' to .git-safe."
