@@ -1,0 +1,2 @@
+- [Roblox asset publishing](roblox-asset-publishing.md) — Open Cloud upload works (user 434916384), key not stored, rbxtemp ids refused in playtest
+- [Viewmodel pipeline RETEX](viewmodel-pipeline-retex.md) — Rojo sync/Studio-only assets/FBX flip traps; see docs/notes/retex-viewmodel-m9.md

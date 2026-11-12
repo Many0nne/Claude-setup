@@ -49,6 +49,7 @@ Pour chaque issue, estimer les fichiers/modules qu'elle touchera :
 3. Noter : depot(s) concerne(s), fichiers probables, fichiers transverses (migrations du meme app Django, `settings`, `urls.py`, `package.json`, lockfiles, router, store global, composants partages, CI `.github/workflows`), et le niveau de confiance (haute si l'issue cite des fichiers, basse si deduit).
 4. Signaler aussi si l'issue a besoin d'un changement de l'autre depot (contrat d'API) ou porte le label `... Calculs a valider` (validation metier requise avant de livrer).
 5. Documentation metier (cas NOP : `docs/metier/` du depot racine) : noter les documents qui decrivent ce que l'issue touche (index du `README.md`, sections « Correspondance code »), et si l'issue change une regle qu'ils decrivent (le document sera alors modifie dans la tache).
+6. Outil exclusif (projets dont le `CLAUDE.md` decrit un outil a interface partage entre worktrees, ex. CSGO : Roblox Studio, session Blender MCP) : classer le besoin de l'issue en `aucun` (code, tests, build), `Blender -b` (script sans interface, parallelisable), `Studio` (verification en jeu via le verrou partage), `Blender GUI` (modelisation interactive) ou `avis` (rendu, gameplay ou UI a juger par l'utilisateur). Projet sans outil de ce type : sauter cette etape.
 
 L'invocation du skill vaut autorisation de lancer des sous-agents : au-dela de ~5 issues, repartir l'etape 4 sur des sous-agents `Explore` en parallele (un lot d'issues chacun, depot indique), qui rendent pour chaque issue la liste de fichiers, les fichiers transverses, les dependances et la confiance. Ne pas leur demander de modifier quoi que ce soit.
 
@@ -69,6 +70,8 @@ Classement :
 
 Puis construire les lots parmi les disponibles : graphe de conflits issue/issue, et grouper glouton en commencant par les issues en retard puis par echeance, de sorte qu'aucune paire d'un meme lot ne soit en conflit. Lot 1 = ce qu'on peut lancer tout de suite en parallele ; lots suivants = a lancer apres le merge du lot precedent.
 
+Outil exclusif (etape 4.6) : dans un meme sous-lot, au plus une issue `Blender GUI` ; `Studio` et `avis` sont acceptes (les taches se relaient sur le verrou) mais au plus 2 par sous-lot, completes par des issues `aucun` / `Blender -b`. Le signaler dans les remarques.
+
 Capacite du poste : chaque issue lancee demarre sa propre stack Docker (paire back+front du worktree). Si le lot 1 depasse la limite de stacks demarrees en meme temps (rubrique « Capacite du poste » du `~/.claude/CLAUDE.md`, 3 a defaut), le decouper en sous-lots 1a, 1b... de cette taille, par ordre de priorite (en retard, puis echeance) : un sous-lot demarre quand des stacks du precedent se liberent (PR ouverte et thread ferme), sans attendre de merge.
 
 ## 6. Rapport
@@ -76,7 +79,7 @@ Capacite du poste : chaque issue lancee demarre sa propre stack Docker (paire ba
 En chat, dans cet ordre :
 
 1. **Iteration** : milestones retenus, nombre d'issues par depot.
-2. **Lot 1 (parallelisable maintenant)**, par sous-lot s'il a fallu le decouper (capacite du poste) : tableau `issue | depot | titre | fichiers principaux | confiance | remarques` (en retard, calcul a valider, back+front, regle metier modifiee avec le document concerne).
+2. **Lot 1 (parallelisable maintenant)**, par sous-lot s'il a fallu le decouper (capacite du poste) : tableau `issue | depot | titre | fichiers principaux | outil | confiance | remarques` (colonne `outil` seulement si l'etape 4.6 s'applique) (en retard, calcul a valider, back+front, regle metier modifiee avec le document concerne).
 3. **Lots suivants** : meme tableau, avec pour chaque issue l'issue du lot precedent avec laquelle elle entre en conflit.
 4. **Bloquees par une PR ouverte** : `issue | PR bloquante (auteur, brouillon ?) | raison`.
 5. **Deja en cours** : `issue | PR`.

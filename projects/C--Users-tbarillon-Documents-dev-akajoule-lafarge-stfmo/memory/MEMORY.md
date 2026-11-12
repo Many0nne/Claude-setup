@@ -1,1 +1,2 @@
 - [Contexte audit STFMO](stfmo-audit-context.md) — Q1 RAM/CPU + Q2 conso gasoil ; dépôt hors OneDrive, données ~/stfmo-data
+- [Chiffrage en jours-homme](chiffrage-jours-homme.md) — vitesse Claude, demi-journées, valeur haute unique

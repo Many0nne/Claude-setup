@@ -1,1 +1,18 @@
 - [Push repo de setup OK](claude-setup-push-ok.md) — commit+push directs sur main de ~/.claude autorisés en permanence
+- [Issues -> GitHub Project](issues-github-project.md) — créer les issues via scripts/nop-issue.ps1 (projet n°4 + tous les champs)
+- [Confiance des points de review](feedback_review_confidence_labels.md) — Review : bloquants seulement, fichier:ligne + pourquoi + comment ça casse, et vérifié vs supposition
+- [Proposer la factorisation](feedback_propose_factorisation.md) — Proposer d'extraire un composant/fonction dès qu'on duplique du markup ou de la logique
+- [Appel BRGM synchrone assumé](project_gmi_appel_synchrone.md) — PR #304 : latence save bâtiment acceptée, ne pas re-signaler en review
+- [Pas de changement hors périmètre](feedback_no_out_of_scope_changes.md) — Ne pas appliquer une modification hors de la demande sans accord explicite, la proposer d'abord
+- [Placement des const en Vue](feedback_const_placement.md) — Const en haut du script setup ; extraction vers fichier dédié seulement si déjà utilisée ailleurs, jamais par anticipation
+- [Pas d'Unicode ambigu dans le code](feedback_ascii_only_python.md) - Jamais d'espace fine (ni " "), ×, tirets/guillemets typographiques : ASCII simple uniquement (ruff RUF001 bloque le commit)
+- [Imports en haut du fichier](feedback_imports_en_haut.md) — NOP : jamais d'import local dans une fonction, même pour un cycle ; proposer une alternative
+- [BDD de dev modifiable](feedback_dev_db_modifiable.md) — Tester de bout en bout en modifiant la BDD dev via docker, sans rollback
+- [Token SonarCloud](project_sonar_token.md) — SONAR_TOKEN pour les issues Sonar des PR, expire le 2026-11-13 : rappeler de le renouveler
+- [Tester moi-même](feedback_tester_moi_meme.md) — Tests fonctionnels faits par moi (preview + captures), accès de test = URL + email + mdp complets
+- [Stack prête avant vérif](feedback_up_stack_avant_verif.md) — Créer ET up back+front (worktrees, containers, données) moi-même avant toute vérif ; l'utilisateur n'ouvre que le lien
+- [Couts preview T3](reference_t3_preview_couts.md) — Mesure 14/10 : snapshot texte ~3,5k tokens, image ~1,4k, evaluate ~0,1k ; evaluate autorise
+- [Outillage env : appliquer direct](feedback_env_tooling_apply_direct.md) — Ameliorations scripts/CLAUDE.md/skills NOP reperees en route : les appliquer, pas en "Trouve"
+- [Captures : état au survol](feedback_captures_survol.md) — Preuves de PR front : capturer aussi l'infobulle/menu au survol des éléments ajoutés
+- [Push : --force-with-lease](feedback_push_force_with_lease.md) — Jamais --force ; toujours --force-with-lease apres un rebase
+- [Extraire les valeurs magiques répétées](feedback_constantes_valeurs_magiques.md) — Constante de module dès qu'une valeur fixe est utilisée plusieurs fois dans un fichier

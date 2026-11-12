@@ -54,6 +54,16 @@ notifications, préférences de travail) va dans `~/.claude` (`CLAUDE.md`,
 - Remontée : si le thread rétrogradé tombe sur un cas « rester sur Opus », repasser sur `claude-opus-5-5` et l'annoncer.
 - Ne jamais basculer si j'ai choisi le modèle explicitement. Hors T3 (pas d'outil), suggérer `/model sonnet` sans agir.
 
+**Modèle des sous-agents :** avant chaque sous-agent (`Agent`, `delegate_task`), choisir le modèle et l'effort selon
+la tâche, sans hériter par défaut de ceux de la session. Toujours passer `model` (et `effort`, que cette règle autorise
+explicitement) :
+- `haiku`, effort `low` : recherche et lecture pure (Explore, localiser du code, lister des fichiers, résumer une doc).
+- `sonnet`, effort `medium` : tâche mécanique ou bien cadrée (mêmes cas que « Sonnet » ci-dessus).
+- `opus`, effort `high` : conception, spec floue, debug dont la cause est inconnue, review de code, plusieurs modules.
+- Doute : prendre le niveau au-dessus. Si j'ai demandé un modèle ou un effort, l'appliquer tel quel.
+- Un fork (`subagent_type: "fork"`) hérite toujours du modèle de la session : ne pas l'utiliser pour une tâche
+  qui relève de `haiku` ou `sonnet`, lancer plutôt un agent frais avec un brief.
+
 **Capacité du poste :** au plus 3 stacks Docker de worktree démarrées en même temps ; au-delà le poste sature. Découper les
 lots de délégation en conséquence (`/triage`, `/delegate`).
 
@@ -62,6 +72,7 @@ lots de délégation en conséquence (`/triage`, `/delegate`).
 **When stuck in a loop:** After 3–4 back-and-forth attempts on the same problem without resolution, stop and produce a structured recap: (1) problem summary, (2) what was tried and why it failed, (3) remaining hypotheses. Then propose a direction rather than continuing blind.
 
 **Git sur ce poste :** un outil de diff externe est configuré ; `git range-diff` plante sans `--no-ext-diff` (`unsupported filetype`). Toujours passer `--no-ext-diff` à `range-diff` (contrôle qu'aucune modification n'a disparu après un rebase).
+`gh` est un shim (`~/bin/gh.exe`, source et build dans `~/.claude/scripts/gh-shim/`) : il utilise le compte Many0nne pour les dépôts `Many0nne/*` et le compte actif ailleurs. Ne jamais lancer `gh auth switch`.
 
 **Browser checks:** Never use Claude in Chrome (disabled, too costly on the Pro plan). Targeted self-checks are allowed with the T3 Code `preview_*` tools: navigate, then `preview_evaluate` assertions (text-only `preview_snapshot` only to orient, no screenshots). For visual/UX judgement, give me a short test protocol (URL, steps, what to observe) and wait for my feedback.
 

@@ -1,0 +1,12 @@
+- [Animations : valider sur référence](animation-reference-workflow.md) — vidéo de référence et poses clés numérotées avant d'écrire une animation
+- [Demander une référence tôt](demander-reference-tot.md) — sons et rendus subjectifs : demander un extrait dès le premier message, avant tout essai
+- [DA : prototyper dans le moteur](ui-prototyper-dans-le-moteur.md) — écrans du jeu : vrais assets dans Roblox plutôt que maquettes HTML, voir `docs/ui.md`
+- [Report = ne pas agir](report-differe-ne-pas-agir.md) — « si il faut on fera X » : X est reporté, ne pas l'implémenter
+- [Dizzy : retour sur la v1](dizzy-map-retour-v1.md) — seconde map : v1 trop petite (viser 1,5 à 2x plus grand) et pleine de trous, abandonnée
+- [Rojo : vérifier la connexion](rojo-verifier-connexion.md) — tester les connexions TCP au port avant de demander un Disconnect
+- [DA : composer, pas empiler](da-composer-pas-empiler.md) — scènes : références + planche Blender validée avant Roblox, pas de primitives empilées
+- [Dizzy : pas d'identique](dizzy-libre-par-rapport-reference.md) — habillage et détails de Dizzy libres, pas besoin de coller à ar_dizzy
+- [Strafe = air strafe](strafe-veut-dire-air-strafe.md) — « strafe » = gagner de la vitesse en l'air (avec le bhop), pas le pas de côté ADAD
+- [Modèles et skins : Blender](modeles-skins-blender-pas-threejs.md) — plus d'aperçus three.js ni de planche 2D pour créer un modèle (essai jeté le 2026-11-10)
+- [Planche : rendu rapide](planche-rendu-rapide.md) — planches Blender en Workbench (secondes), pas EEVEE (30+ min sur ce poste)
+- [Animations : jamais sans référence](animation-sans-reference-interdit.md) — pas de vidéo de l'arme exacte : prendre l'arme CS:GO la plus proche, une planche n'est pas une référence

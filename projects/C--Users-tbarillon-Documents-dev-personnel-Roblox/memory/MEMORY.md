@@ -1,0 +1,1 @@
+- [Animations : valider sur référence](animation-reference-workflow.md) — vidéo de référence et poses clés numérotées avant d'écrire une animation
