@@ -71,6 +71,8 @@ lots de délégation en conséquence (`/triage`, `/delegate`).
 
 **When stuck in a loop:** After 3–4 back-and-forth attempts on the same problem without resolution, stop and produce a structured recap: (1) problem summary, (2) what was tried and why it failed, (3) remaining hypotheses. Then propose a direction rather than continuing blind.
 
+**Texte multi-lignes pour une commande** (contenu de fichier, message de commit, corps de PR ou d'issue, script) : jamais de heredoc Bash, que les guillemets, `#` et `$` cassent, parfois sans erreur visible. L'écrire avec l'outil Write dans un fichier temporaire d'un dossier autorisé en écriture et non suivi par git, puis passer son chemin (`git commit -F`, `gh pr create --body-file`, `python -I <script>`).
+
 **Git sur ce poste :** un outil de diff externe est configuré ; `git range-diff` plante sans `--no-ext-diff` (`unsupported filetype`). Toujours passer `--no-ext-diff` à `range-diff` (contrôle qu'aucune modification n'a disparu après un rebase).
 `gh` est un shim (`~/bin/gh.exe`, source et build dans `~/.claude/scripts/gh-shim/`) : il utilise le compte Many0nne pour les dépôts `Many0nne/*` et le compte actif ailleurs. Ne jamais lancer `gh auth switch`.
 

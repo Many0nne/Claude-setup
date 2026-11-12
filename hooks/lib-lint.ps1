@@ -1,5 +1,6 @@
 # Fonctions communes aux hooks lint-on-edit.ps1 et stop-validate.ps1 (dot-source).
 # Detection par depot : ruff si le pyproject le configure, ESLint si eslint.config.* et node_modules existent.
+# Luau : tools/check.sh du depot s'il existe (Invoke-LuauCheck).
 
 # Cette methode permet de retrouver la racine git d'un fichier lorsqu'on doit lancer un linter avec la config du depot.
 function Get-RepoRoot([string]$File) {
@@ -49,6 +50,32 @@ function Invoke-Ruff([string]$Root, [string[]]$Files, [switch]$Format) {
     }
     return $errors
   } finally { Pop-Location }
+}
+
+# Cette methode permet de lancer tools/check.sh (lint, format, types, tests) lorsque des fichiers .luau d'un depot qui l'a
+# ont ete modifies ; saute le lancement si ces fichiers n'ont pas bouge depuis le dernier passage reussi. Renvoie la sortie en cas d'echec.
+function Invoke-LuauCheck([string]$Root, [string[]]$Files) {
+  if (-not (Test-Path (Join-Path $Root 'tools\check.sh'))) { return '' }
+  $signature = ($Files | Sort-Object | ForEach-Object { "$_|$((Get-Item $_).LastWriteTimeUtc.Ticks)" }) -join ';'
+  $key = [Convert]::ToHexString([Security.Cryptography.SHA1]::HashData([Text.Encoding]::UTF8.GetBytes($Root.ToLower())))
+  $cache = Join-Path ([IO.Path]::GetTempPath()) "claude-hooks\luau-check-$key.txt"
+  if ((Test-Path $cache) -and (Get-Content $cache -Raw).Trim() -eq $signature) { return '' }
+  # Bash de Git : celui du PATH peut etre le lanceur WSL.
+  $bash = Join-Path $env:ProgramFiles 'Git\bin\bash.exe'
+  if (-not (Test-Path $bash)) { $bash = 'bash' }
+  Push-Location $Root
+  try {
+    $lines = @(& $bash tools/check.sh 2>&1 | ForEach-Object { "$_" })
+    $failed = $LASTEXITCODE -ne 0
+  } finally { Pop-Location }
+  if (-not $failed) {
+    New-Item -ItemType Directory -Force (Split-Path $cache) | Out-Null
+    Set-Content -Path $cache -Value $signature
+    return ''
+  }
+  $max = 150
+  $out = if ($lines.Count -gt $max) { "(... $($lines.Count - $max) premieres lignes omises)`n" + ($lines[-$max..-1] -join "`n") } else { $lines -join "`n" }
+  return "bash tools/check.sh echoue dans $Root (sortie complete, sans filtre) :`n$out"
 }
 
 # Cette methode permet de trouver, parmi les services Docker Compose demarres du depot, celui qui contient ESLint
