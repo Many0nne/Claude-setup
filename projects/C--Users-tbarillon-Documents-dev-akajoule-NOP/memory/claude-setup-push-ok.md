@@ -5,10 +5,11 @@ metadata:
   node_type: memory
   type: feedback
   originSessionId: aafdc9b6-4e26-4ca8-938e-65da1dfd6eec
-  modified: 2026-10-29T11:49:32.104Z
+  modified: 2026-11-12T09:20:17.600Z
 ---
 
 Le dépôt de config `~/.claude` (remote `Many0nne/Claude-setup`, public) : commit et push directs sur `main` toujours autorisés, sans redemander. Préfixe des messages `feat:` / `fix:`.
 
 **Why:** l'utilisateur l'a dit explicitement le 2026-10-29 (« tu peux toujours push pour le repo de setup »), même après avertissement que le dépôt est public et contenait une mémoire client.
 **How to apply:** après une modif de skill/config dans `~/.claude`, commiter et pousser directement ; toujours vérifier le diff avant (le `.gitignore` est une whitelist).
+Commiter TOUS les changements en attente du dépôt (`git add -A`), pas seulement les miens : l'utilisateur veut une config constamment à jour (dit le 2026-11-12). Avant, scanner l'ajout pour secrets/binaires (dépôt public) et signaler si quelque chose bloque.

@@ -1,4 +1,4 @@
-- [Push repo de setup OK](claude-setup-push-ok.md) — commit+push directs sur main de ~/.claude autorisés en permanence
+- [Push repo de setup OK](claude-setup-push-ok.md) — commit (tous les changements en attente, git add -A) + push directs sur main de ~/.claude autorisés en permanence
 - [Issues -> GitHub Project](issues-github-project.md) — créer les issues via scripts/nop-issue.ps1 (projet n°4 + tous les champs)
 - [Confiance des points de review](feedback_review_confidence_labels.md) — Review : bloquants seulement, fichier:ligne + pourquoi + comment ça casse, et vérifié vs supposition
 - [Proposer la factorisation](feedback_propose_factorisation.md) — Proposer d'extraire un composant/fonction dès qu'on duplique du markup ou de la logique
