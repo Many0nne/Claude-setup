@@ -5,10 +5,10 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 8489366a-8256-47f6-83bd-bd1a2329ef0a
-  modified: 2026-11-13T12:11:10.437Z
+  modified: 2026-11-13T13:27:16.258Z
 ---
 
-POC de recherche full-text (Python crawler, Tika, OpenSearch, FastAPI, React) sur les partages du serveur Windows stn-srv-data-01 (+ NAS-ARCHIVES). Dépôt privé GitHub Akajoule/Indexation-r-seau-, branche d'intégration `main`.
+POC de recherche full-text (Python crawler, Tika, OpenSearch, FastAPI, React) sur les partages du serveur Windows stn-srv-data-01 (+ NAS-ARCHIVES). Dépôt privé GitHub Akajoule/Indexation-reseau (renommé le 2026-11-13 ; le dossier local garde l'ancien nom pour l'instant), branche d'intégration `main`.
 
 - Le POC tourne sur le poste de l'utilisateur (16 Go RAM, Docker) : crawler natif Windows (session utilisateur pour l'UNC), OpenSearch/Tika en Docker.
 - Dossier de départ validé le 2026-11-13 : `OPERATIONS\CHALEUR RENOUVELABLE` (OPERATIONS accessible à tous).
