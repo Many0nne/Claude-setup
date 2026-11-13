@@ -1,0 +1,2 @@
+- [POC indexation réseau](poc-indexation-reseau.md) — périmètre, poste, dépôt GitHub, dossier de départ, data/ hors git
+- [Doc du POC à ma charge](doc-poc-a-ma-charge.md) — tenir la doc à jour d'office à chaque décision

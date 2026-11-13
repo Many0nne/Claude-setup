@@ -16,3 +16,4 @@
 - [Captures : état au survol](feedback_captures_survol.md) — Preuves de PR front : capturer aussi l'infobulle/menu au survol des éléments ajoutés
 - [Push : --force-with-lease](feedback_push_force_with_lease.md) — Jamais --force ; toujours --force-with-lease apres un rebase
 - [Extraire les valeurs magiques répétées](feedback_constantes_valeurs_magiques.md) — Constante de module dès qu'une valeur fixe est utilisée plusieurs fois dans un fichier
+- [Controles CI avant push](feedback_controles_ci_avant_push.md) — NOP : mypy back et prettier/eslint sur tout le depot front (docs/ compris) avant chaque push
