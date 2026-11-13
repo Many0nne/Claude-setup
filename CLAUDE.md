@@ -64,7 +64,7 @@ explicitement) :
 - Un fork (`subagent_type: "fork"`) hérite toujours du modèle de la session : ne pas l'utiliser pour une tâche
   qui relève de `haiku` ou `sonnet`, lancer plutôt un agent frais avec un brief.
 
-**Capacité du poste :** au plus 3 stacks Docker de worktree démarrées en même temps ; au-delà le poste sature. Découper les
+**Capacité du poste :** au plus 5 stacks Docker de worktree démarrées en même temps ; au-delà le poste sature. Découper les
 lots de délégation en conséquence (`/triage`, `/delegate`).
 
 **Commenting new methods:** Every new method must have 1–2 lines of comment (proportional to complexity), written as pseudo-code: "Cette méthode permet de [action] lorsque [condition/contexte]." One line for simple methods, two for complex ones.

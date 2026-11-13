@@ -77,7 +77,7 @@ Puis construire les lots parmi les disponibles : graphe de conflits issue/issue,
 
 Outil exclusif (etape 4.6) : dans un meme sous-lot, au plus une issue `interactif` ; `verrou` et `avis` sont acceptes (les taches se relaient sur le verrou) mais au plus 2 par sous-lot, completes par des issues `aucun` / `sans interface`. Le signaler dans les remarques.
 
-Capacite du poste : si chaque issue lancee demarre sa propre stack (Docker ou serveurs de dev, voir la section worktrees du `CLAUDE.md` du projet) et que le lot 1 depasse la limite de stacks demarrees en meme temps (rubrique « Capacite du poste » du `~/.claude/CLAUDE.md`, 3 a defaut), le decouper en sous-lots 1a, 1b... de cette taille, par ordre de priorite : un sous-lot demarre quand des stacks du precedent se liberent (PR ouverte et thread ferme), sans attendre de merge. Projet sans stack par worktree : pas de decoupage.
+Capacite du poste : si chaque issue lancee demarre sa propre stack (Docker ou serveurs de dev, voir la section worktrees du `CLAUDE.md` du projet) et que le lot 1 depasse la limite de stacks demarrees en meme temps (rubrique « Capacite du poste » du `~/.claude/CLAUDE.md`, 5 a defaut), le decouper en sous-lots 1a, 1b... de cette taille, par ordre de priorite : un sous-lot demarre quand des stacks du precedent se liberent (PR ouverte et thread ferme), sans attendre de merge. Projet sans stack par worktree : pas de decoupage.
 
 ## 6. Rapport
 
